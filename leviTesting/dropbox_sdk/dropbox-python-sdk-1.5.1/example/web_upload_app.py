@@ -10,8 +10,8 @@ from dropbox import session, client
 
 # XXX Fill in your consumer key and secret below
 # You can find these at http://www.dropbox.com/developers/apps
-APP_KEY = ''
-APP_SECRET = ''
+APP_KEY = 'y7cxubkm19o3f9b'
+APP_SECRET = '8rguqnx7oqwjqtm'
 ACCESS_TYPE = 'app_folder' # should be 'dropbox' or 'app_folder' as configured for your app
 
 HOST = None # override this if the server complains about missing Host headers

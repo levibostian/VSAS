@@ -1,8 +1,8 @@
 import dropbox
 import sys, os, json, re
 
-APP_KEY = ''
-APP_SECRET = ''
+APP_KEY = 'y7cxubkm19o3f9b'
+APP_SECRET = '8rguqnx7oqwjqtm'
 ACCESS_TYPE = 'app_folder'
 
 STATE_FILE = 'copy_between_accounts.json'
