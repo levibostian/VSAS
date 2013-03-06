@@ -20,12 +20,18 @@ PASSWORD = 'teamPassword1'
 recipient = 'bostianl@uni.edu'
 subject = 'Python Test'
 
-body = """
-This is an e-mail message to be sent in HTML format
 
-<b>This is HTML message.</b>
-<h1>This is headline.</h1>
-"""
+#body = """
+#This is an e-mail message to be sent in HTML format
+#
+#<b>This is HTML message.</b>
+#<h1>This is headline.</h1>
+#"""
+
+bodyFile = open('email_body.html', 'r')
+body = bodyFile.read()
+
+
 headers = ["from: " + SENDER,
            "subject: " + subject,
            "to: " + recipient,
