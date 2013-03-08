@@ -22,8 +22,10 @@ def main():
     cam = Device()
 
     print "Getting initial image, and adjusting camera..."
+    
     initialImage = adjustCamera( cam )
     initialImage.save('initialImage.jpg')
+
     print "initial image saved and webcam adjusted..."
 
 
@@ -31,26 +33,24 @@ def main():
     end            = False
 
     while True:
-        time.sleep(.5)
+        time.sleep(.2)
+
         newImage = cam.getImage()
         compared = compare_images( initialImage, newImage, 70, ANY_2RGB )
 
         amtPxChanged = totalChange( compared )
-        if amtPxChanged > 30000:
+        if amtPxChanged > 20000:
             print "Recording..."
-            recordedImages.append( newImage )
-            time.sleep(.5)
-            compared.save('recording.jpg')#' + str(imgNum) + '.jpg')
-
-            amtPxChanged = totalChange( compared )
-            end = True
             print amtPxChanged
+
+            # time.sleep(.2)
+            
+            recordedImages.append( newImage )
+            compared.save('recording.jpg')#' + str(imgNum) + '.jpg')
+            end = True
         else:
             print "not recording..."
-        # if end:
-        #     break
-
-        compared.save('notRecording.jpg')
+            compared.save('notRecording.jpg')
 
 
 main()
