@@ -44,8 +44,7 @@ class Application():
         fileMenu.add_command(label='Email Settings')
         fileMenu.add_command(label='View Previous Recordings')
         fileMenu.add_separator()
-        fileMenu.add_command(label="Exit", command=master.quit)
-        # this has some issues and I will on fixing them
+        fileMenu.add_command(label="Exit", command=master.destroy)
         menuBar.add_cascade(label="File", menu=fileMenu)
 
         helpMenu = Menu(menuBar, tearoff=0)
