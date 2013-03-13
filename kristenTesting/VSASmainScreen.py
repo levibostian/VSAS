@@ -6,30 +6,19 @@ References: pythonware.com
 
 from Tkinter import *
 from PIL import Image, ImageTk
+import tkMessageBox as MsgBox
 
 root = Tk()
 root.title("VSAS")
 class Application():
     def displayAbout(self):
-        aboutRoot = Tk()
-        aboutRoot.title("VSAS - About")
-        Label(aboutRoot, text="VSAS", font=("Times", 12)).pack()
-        Label(aboutRoot, text="(C) 2013", font="Times 12").pack()
-        Label(aboutRoot, text="Group Delta", font="Times 12").pack()
-        Label(aboutRoot, text="Abu Audu, Levi Bostian\nTaylor Brown, Kyle Mueller\nKristen Nielsen",
-              font="Times 12").pack()
+        text = "VSAS\n(C) 2013\nGroup Delta\nAbu Audu, Levi Bostian,\nTaylor Brown, Kyle Mueller,\nKristen Nielsen"
+        MsgBox.showinfo(title="VSAS - About", message = text)
         
-    def displayHelp(self):
-        helpRoot = Tk()
-        helpRoot.title("Main Help")
-        helpFrame = Frame(helpRoot, height=600, width=400, background="white")
-        helpFrame.pack()
-        Label(helpFrame,text="Help", font="Times 16 bold", background='white').pack()
+    def displayHelp(self, event=None):
         helpText = open("MainScreenHelp.txt", 'r').read()
-        helpLabel = Label(helpFrame, text=helpText, font = "Times 12",
-                          justify=LEFT, anchor=W, wraplength=400,
-                          background='white').pack()
-                          
+        MsgBox.showinfo(title="VSAS - Help", message = helpText)
+
 
     def __init__(self, master=None):
         master.title("VSAS")
@@ -53,6 +42,8 @@ class Application():
         menuBar.add_cascade(label="Help", menu=helpMenu)
 
         master.config(menu=menuBar)
+        
+        master.bind("<F1>", self.displayHelp)
 
         self.imgCanvas = Canvas(self.frame)
         self.imgCanvas.pack()
