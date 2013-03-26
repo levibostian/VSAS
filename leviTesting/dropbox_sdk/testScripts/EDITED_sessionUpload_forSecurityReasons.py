@@ -2,8 +2,8 @@
 from dropbox import client, rest, session
 
 # Get your app key and secret from the Dropbox developer website
-APP_KEY = 'y7cxubkm19o3f9b'
-APP_SECRET = '8rguqnx7oqwjqtm'
+APP_KEY = #removed for security purposes
+APP_SECRET = #removed for security purposes
 
 # ACCESS_TYPE should be 'dropbox' or 'app_folder' as configured for your app
 ACCESS_TYPE = 'app_folder'
