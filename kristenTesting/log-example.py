@@ -9,7 +9,7 @@ class App:
     def __init__(self):
         self.root = Tk()
 
-        self.root.title("Scrollbar test")
+        self.root.title("Previous Recordings")
 
         self.canvas = Canvas(self.root)
         self.frame = Frame(self.canvas)
@@ -27,8 +27,9 @@ class App:
         self.root.mainloop()
 
     def populate(self):
-        Label(self.frame, text="DATE").grid(row = 0, column = 0)
-        Label(self.frame, text="SECURITY THREAT").grid(row=0, column =1)
+        Label(self.frame, text="LABEL", font=("bold")).grid(row=0,column=0)
+        Label(self.frame, text="DATE").grid(row = 0, column = 1)
+        Label(self.frame, text="SECURITY THREAT").grid(row=0, column =2)
         for row in xrange(1,100):
             month = randint(1,12)
             if month in [9,4,6,11]:
@@ -37,8 +38,8 @@ class App:
                 day=randint(1,31)
             else:
                 day=randint(1,28)
-            Label(self.frame,text=str(date(2013,month,day))).grid(row=row,column=0)
-            Label(self.frame, text=choice(['red','orange','yellow'])).grid(row=row, column=1)
+            Label(self.frame,text=str(date(2013,month,day))).grid(row=row,column=1)
+            Label(self.frame, text=choice(['red','orange','yellow'])).grid(row=row, column=2)
             
     def OnFrameConfigure(self,event):
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
