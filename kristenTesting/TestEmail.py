@@ -1,11 +1,11 @@
 """
 Test of an Email Screen
 Author: Kristen Nielsen  kristen.e.nielsen@gmail.com
-Modeled after tkSimpleDialog.py from pythonware.com"""
+Modeled after tkSimpleDialog.py from pythonware.com
+"""
 
 from Tkinter import *
 import tkMessageBox as MsgBox
-import tkSimpleDialog
 
 class EmailOptions(Toplevel):
 

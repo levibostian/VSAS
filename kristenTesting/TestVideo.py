@@ -6,7 +6,6 @@ Modeled after tkSimpleDialog.py from pythonware.com
 
 from Tkinter import *
 import tkMessageBox as MsgBox
-import tkSimpleDialog
 
 class VideoSettings(Toplevel):
 
