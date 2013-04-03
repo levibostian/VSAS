@@ -17,6 +17,8 @@ class EmailOptions(Toplevel):
 
     	self._parent = parent
 
+    	self._emailList = []
+
     	body = Frame(self)
     	self._initialFocus = self.body(body)
     	body.pack_propagate(0)
@@ -40,10 +42,30 @@ class EmailOptions(Toplevel):
 
 
     def body(self, master):
-    	pass
-
+    	# create canvas to hold scrollbar and listbox objects
+    	emailListCanvas = Canvas(master, width=350, height=400)
+    	emailListCanvas.config(scrollregion=emailListCanvas.bbox(ALL))
+    	emailListCanvas.grid(column=0, sticky=W)
+    	
+    	# create listbox object
+    	Label(emailListCanvas, text="Email Address").grid(row=0, sticky=W)
+    	Label(emailListCanvas, text="Image Only").grid(row=0,column=1)
+    	self._emailListbox = Listbox(emailListCanvas)
+        # create canvas to hold admin email information
+        adminEmailCanvas = Canvas(master)
+        adminEmailCanvas.grid(column=1)
+    	
     def buttonBox(self):
     	pass
+
+    def addEmail(self):
+        pass
+
+    def deleteEmail(self):
+        pass
+
+    def editEmail(self):
+        pass
 
     def cancel(self, event=None):
     	if MsgBox.askokcancel("Quit", "Are you sure you want to quit?"):
