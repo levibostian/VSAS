@@ -10,12 +10,17 @@ References: http://www.tutorialspoint.com/python/python_sending_email.htm
 """line below is for Linux only. Change for Windows"""
 #!/usr/bin/python 
 
+import bz2 #used for really bad password encyption. Better then nothing
 import smtplib
 
 SMTP_SERVER = 'smtp.gmail.com'
 SMTP_PORT = 587 #or 465
 SENDER = 'team4.cs2720@gmail.com'
-PASSWORD = 'teamPassword1'
+
+## receive encrypted email password from password file
+passwordFile = open("email_p.txt", "r")
+PASSWORD = bz2.decompress(passwordFile.read())
+passwordFile.close()
 
 recipient = 'bostianl@uni.edu'
 subject = 'Python Test'
