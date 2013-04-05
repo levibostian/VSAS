@@ -46,5 +46,5 @@ class EmailInput(tkSimpleDialog.Dialog):
     def apply(self):
         self.result = str(self._emailEntered.get()+ " "+ self._imageOnlyStr)
 
-    def getResult(self):
+    def get(self):
         return self.result
