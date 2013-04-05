@@ -51,6 +51,7 @@ class EmailOptions(Toplevel):
     	Label(emailListCanvas, text="Email Address").grid(row=0, sticky=W)
     	Label(emailListCanvas, text="Image Only").grid(row=0,column=1)
     	self._emailListbox = Listbox(emailListCanvas)
+    	self._emailListbox.grid(column = 0, sticky=W)
         # create canvas to hold admin email information
         adminEmailCanvas = Canvas(master)
         adminEmailCanvas.grid(column=1)
