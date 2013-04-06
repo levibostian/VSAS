@@ -9,7 +9,6 @@ import tkMessageBox as MsgBox
 import tkSimpleDialog
 
 class EmailInput(tkSimpleDialog.Dialog):
-
     def body(self, master):
 
         self._imageOnlyStr = "N"
@@ -17,7 +16,8 @@ class EmailInput(tkSimpleDialog.Dialog):
     	Label(master, text="Email:").grid(row=0, sticky=W)
     	self._emailEntered = StringVar()
     	self._emailEntered.set("Enter email")
-    	self._emailEntry = Entry(master, textvariable=self._emailEntered)
+    	self._emailEntry = Entry(master, width = 40,
+                                 textvariable=self._emailEntered)
     	self._emailEntry.grid(row=0,column=1)
 
         self._checkedVar = IntVar()
@@ -35,12 +35,12 @@ class EmailInput(tkSimpleDialog.Dialog):
             self._imageOnlyStr = "N"
     
     def validate(self):
-        if ((len(self._emailEntered.get())>1) and ("@" in self._emailEntered.get())):
+        if ((len(self._emailEntered.get())>=6) and ("@" in self._emailEntered.get())):
             return 1
         else:
             MsgBox.showwarning(
                 "Invalid email",
-                "Please reinput email address")
+                "Please reenter email address")
             return 0
         
     def apply(self):
