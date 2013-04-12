@@ -12,6 +12,7 @@ class EmailInput(tkSimpleDialog.Dialog):
     def body(self, master):
 
         self._imageOnlyStr = "N"
+        self.adminStr = ""
 
     	Label(master, text="Email:").grid(row=0, sticky=W)
     	self._emailEntered = StringVar()
@@ -20,13 +21,25 @@ class EmailInput(tkSimpleDialog.Dialog):
                                  textvariable=self._emailEntered)
     	self._emailEntry.grid(row=0,column=1)
 
-        self._checkedVar = IntVar()
+        self._imgageOnlyCheckedVar = IntVar()
     	self._imageOnlyCheckButton = Checkbutton(master, text="Image Only",
-                                                 variable=self._checkedVar,
+                                                 variable=self._imageOnlyCheckedVar,
                                                  command=self.isChecked)
     	self._imageOnlyCheckButton.grid(row=1,columnspan=2, sticky=W)
+    	self.adminCheckedVar = IntVar()
+    	self.adminCheckButton = Checkbutton(master, text="Administrator Email",
+    	variable=self.adminCheckedVar,
+    	command=self.adminIsChecked)
+    	self.adminCheckButton.grid(row=2, columnspan=2, stick=W)
     	
+
     	return self._emailEntry
+     
+    def adminIsChecked(self, event=None):
+        if self.adminCheckedVar:
+           self.adminStr = "admin"
+        else:
+           self.adminStr = ""
 
     def isChecked(self, event=None):
         if self._checkedVar:
