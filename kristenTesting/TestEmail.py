@@ -19,9 +19,9 @@ class EmailOptions(Toplevel):
 
     	self._parent = parent
 
-    	self._emailList = []
+    	self.adminEmail=""
 
-    	body = Frame(self)
+    	body = Frame(self, bg="black")
     	self._initialFocus = self.body(body)
     	body.pack_propagate(0)
     	body.pack(padx=5,pady=5)
@@ -48,7 +48,7 @@ class EmailOptions(Toplevel):
     	emailListCanvas = Canvas(master, width=350, height=400)
     	emailListCanvas.config(scrollregion=emailListCanvas.bbox(ALL))
     	emailListCanvas.grid(column=0, sticky=W)
-    	
+
     	# create multiListbox to hold email list
     	self._emailListbox = MultiListbox(emailListCanvas,
                                           (('Email', 40), ('Image Only', 10)))
@@ -56,15 +56,21 @@ class EmailOptions(Toplevel):
         # create canvas to hold admin email information
         adminEmailCanvas = Canvas(master)
         adminEmailCanvas.grid(column=1)
-    	
+        Label(master, text="The administrator email will receive\nall information regarding all alerts",
+        fg="green",bg="black").grid(column=1, row=0, sticky=CENTER)
+
+
     def buttonBox(self):
     	pass
 
     def addEmail(self):
         email = EmailInput(self, title="Add Email").get()
         email = email.split()
-        email = email.tuple()
-        self._emailListbox.insert(END, email)
+        if not "admin" in email:
+            email = email.tuple()
+            self._emailListbox.insert(END, email)
+        else:
+            self.adminEmail=email[0]
 
     def deleteEmail(self):
         pass
