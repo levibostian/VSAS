@@ -80,7 +80,7 @@ class Application():
         adjustCameraButton['bg'] = 'red'
         adjustCameraButton.pack(side=TOP,padx=4,pady=4)
         # adjustCameraButton['command']
-        
+
         emailButton = Button(self._btnCanvas, text='Email Settings')
         emailButton.pack(side=LEFT,padx=4,pady=4)
         emailButton['command']=self.displayEmailSettings
