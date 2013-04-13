@@ -37,9 +37,11 @@ print "NOW READY TO UPLOAD!!!"
 print
 
 #below you declare what file you are uploading. 
-f = open('working-draft.txt')
+#f = open('working-draft.txt')
+f = open('golf-testVid.mov')
 #below you declare location AND name of file to upload as. Name whatever you desire.
-response = client.put_file('/fileUploader_linkCreator/magnum-opus.txt', f)
+#response = client.put_file('/fileUploader_linkCreator/magnum-opus.txt', f)
+response = client.put_file('/fileUploader_linkCreator/golf-testVid.mov', f)
 print "uploaded:", response
 
 print
@@ -47,7 +49,11 @@ print "FILE UPLOADED SUCCESSFULLY!!"
 print "...NOW ONTO CREATING LINK"
 print
 
-link = client.share('/fileUploader_linkCreator/magnum-opus.txt')
+#link = client.share('/fileUploader_linkCreator/magnum-opus.txt')
+#link = client.share('/fileUploader_linkCreator/golf-testVid.mov')
+#below uses .media() instead of .share() as media gives you
+#  direct link to file instead of special preview link
+link = client.media('/fileUploader_linkCreator/golf-testVid.mov')
 print link
 
 
