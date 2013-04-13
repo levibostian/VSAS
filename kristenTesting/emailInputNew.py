@@ -9,14 +9,55 @@ import tkMessageBox as MsgBox
 import tkSimpleDialog
 
 class EmailInput(tkSimpleDialog.Dialog):
+    def body(self, master):
 
-    def body(self):
+        self._imageOnlyStr = "N"
+        self.adminStr = ""
 
     	Label(master, text="Email:").grid(row=0, sticky=W)
-    	self._emailEntry = Entry(master)
+    	self._emailEntered = StringVar()
+    	self._emailEntered.set("Enter email")
+    	self._emailEntry = Entry(master, width = 40,
+                                 textvariable=self._emailEntered)
     	self._emailEntry.grid(row=0,column=1)
+
+        self._imgageOnlyCheckedVar = IntVar()
+    	self._imageOnlyCheckButton = Checkbutton(master, text="Image Only",
+                                                 variable=self._imageOnlyCheckedVar,
+                                                 command=self.isChecked)
+    	self._imageOnlyCheckButton.grid(row=1,columnspan=2, sticky=W)
+    	self.adminCheckedVar = IntVar()
+    	self.adminCheckButton = Checkbutton(master, text="Administrator Email",
+    	variable=self.adminCheckedVar,
+    	command=self.adminIsChecked)
+    	self.adminCheckButton.grid(row=2, columnspan=2, stick=W)
     	
+
     	return self._emailEntry
+     
+    def adminIsChecked(self, event=None):
+        if self.adminCheckedVar:
+           self.adminStr = "admin"
+        else:
+           self.adminStr = ""
+
+    def isChecked(self, event=None):
+        if self._checkedVar:
+            self._imageOnlyStr = "Y"
+        else:
+            self._imageOnlyStr = "N"
     
     def validate(self):
-    	
+        if ((len(self._emailEntered.get())>=6) and ("@" in self._emailEntered.get())):
+            return 1
+        else:
+            MsgBox.showwarning(
+                "Invalid email",
+                "Please reenter email address")
+            return 0
+        
+    def apply(self):
+        self.result = str(self._emailEntered.get()+ " "+ self._imageOnlyStr)
+
+    def get(self):
+        return self.result

@@ -6,6 +6,8 @@ Modeled after tkSimpleDialog.py from pythonware.com
 
 from Tkinter import *
 import tkMessageBox as MsgBox
+from multilistbox import MultiListbox
+from emailInputNew import EmailInput
 
 class EmailOptions(Toplevel):
 
@@ -17,9 +19,9 @@ class EmailOptions(Toplevel):
 
     	self._parent = parent
 
-    	self._emailList = []
+    	self.adminEmail=""
 
-    	body = Frame(self)
+    	body = Frame(self, bg="black")
     	self._initialFocus = self.body(body)
     	body.pack_propagate(0)
     	body.pack(padx=5,pady=5)
@@ -46,20 +48,29 @@ class EmailOptions(Toplevel):
     	emailListCanvas = Canvas(master, width=350, height=400)
     	emailListCanvas.config(scrollregion=emailListCanvas.bbox(ALL))
     	emailListCanvas.grid(column=0, sticky=W)
-    	
-    	# create listbox object
-    	Label(emailListCanvas, text="Email Address").grid(row=0, sticky=W)
-    	Label(emailListCanvas, text="Image Only").grid(row=0,column=1)
-    	self._emailListbox = Listbox(emailListCanvas)
+
+    	# create multiListbox to hold email list
+    	self._emailListbox = MultiListbox(emailListCanvas,
+                                          (('Email', 40), ('Image Only', 10)))
+    	self._emailListbox.grid(column = 0, sticky=W)
         # create canvas to hold admin email information
         adminEmailCanvas = Canvas(master)
         adminEmailCanvas.grid(column=1)
-    	
+        Label(master, text="The administrator email will receive\nall information regarding all alerts",
+        fg="green",bg="black").grid(column=1, row=0, sticky=CENTER)
+
+
     def buttonBox(self):
     	pass
 
     def addEmail(self):
-        pass
+        email = EmailInput(self, title="Add Email").get()
+        email = email.split()
+        if not "admin" in email:
+            email = email.tuple()
+            self._emailListbox.insert(END, email)
+        else:
+            self.adminEmail=email[0]
 
     def deleteEmail(self):
         pass
