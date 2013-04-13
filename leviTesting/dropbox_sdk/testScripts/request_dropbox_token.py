@@ -1,3 +1,9 @@
+"""
+file kept for reference only. Do NOT use this file. use dropbox.py instead
+as all methods are now in there
+"""
+
+
 # Include the Dropbox SDK libraries
 from dropbox import client, rest, session
 

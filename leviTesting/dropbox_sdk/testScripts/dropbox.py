@@ -54,7 +54,7 @@ class DropboxUploader:
 
     def getAuthenticationURL(self):
         self.request_token = self.sess.obtain_request_token()
-        return self.sess.build_authorize_url(request_token)
+        return self.sess.build_authorize_url(self.request_token)
         # This will fail if the user didn't visit the above URL and hit 'Allow'
         
     def saveToken(self):
@@ -67,3 +67,4 @@ class DropboxUploader:
         tokenFile = open(tokensFileStr, 'w')
         tokenFile.write("%s|%s" % (access_token.key,access_token.secret))
         tokenFile.close()
+        
