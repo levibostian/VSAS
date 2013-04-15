@@ -9,13 +9,15 @@ Description: Class uploading data to Dropbox
              dropboxObj = DropboxUploader()
              dropboxObj.authenticate()
              dropboxObj.uploadFile("testFile.txt")
-             fileURL = dropboxObj.getLink("testFile.txt")
+             fileURL = dropboxObj.getLink("testFile.txt") #returns URL to file
 
 print test
 
 References: https://www.dropbox.com/developers 
 """
 from dropbox import client, rest, session
+import json
+import pprint
 
 class DropboxUploader:
     def __init__(self):
@@ -44,11 +46,14 @@ class DropboxUploader:
         file = open(self.filePath)
         return self.connection.put_file('/fileUploader_linkCreator/'+self.filePath, file)
 
-    def getLink(self, filePath):
-        if filePath[0:1] == '/':
-            filePath = filePath[1:]
+    def getLink(self, fileLocation):
+        if fileLocation[0:1] == '/':
+            fileLocation = fileLocation[1:]
         try:
-            return self.connection.media('/fileUploader_linkCreator/'+filePath)
+            jsonData = self.connection.media('/fileUploader_linkCreator/'+fileLocation)
+            jsonDataString = json.dumps(jsonData)#encode JSON data
+            jsonDataDecoded = json.loads(jsonDataString)#decode JSON data
+            return jsonDataDecoded["url"] #return JUST the URL of link
         except:
             return "filePath argument not found in Dropbox"
 
@@ -67,4 +72,4 @@ class DropboxUploader:
         tokenFile = open(tokensFileStr, 'w')
         tokenFile.write("%s|%s" % (access_token.key,access_token.secret))
         tokenFile.close()
-        
+
