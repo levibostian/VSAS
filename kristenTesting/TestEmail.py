@@ -20,7 +20,10 @@ class EmailOptions(Toplevel):
     	self._parent = parent
 
     	self.adminEmail=""
-
+        emailFile = open("emailTester.txt","r")
+        self.emailList = emailFile.readlines()
+        print self.emailList
+        emailFile.close()
     	body = Frame(self, bg="black")
     	self._initialFocus = self.body(body)
     	body.pack_propagate(0)
@@ -51,13 +54,19 @@ class EmailOptions(Toplevel):
 
     	# create multiListbox to hold email list
     	self._emailListbox = MultiListbox(emailListCanvas,
-                                          (('Email', 40), ('Image Only', 10)))
+                                          (('Email', 160), ('Image Only', 70)))
+        for item in self.emailList:
+    	    item = item[ :-1]
+    	    item = item.split(",")
+    	    print item[0]+' '+item[1]
+    	    self._emailListbox.insert(END, (item[0], item[1]))
     	self._emailListbox.grid(column = 0, sticky=W)
+
         # create canvas to hold admin email information
         adminEmailCanvas = Canvas(master)
         adminEmailCanvas.grid(column=1)
         Label(master, text="The administrator email will receive\nall information regarding all alerts",
-        fg="green",bg="black").grid(column=1, row=0, sticky=CENTER)
+        fg="green",bg="black").grid(column=1, row=0)
 
 
     def buttonBox(self):
@@ -65,10 +74,15 @@ class EmailOptions(Toplevel):
 
     def addEmail(self):
         email = EmailInput(self, title="Add Email").get()
-        email = email.split()
+        emailFile = open("emailTester.txt","a")
+        emailComposite = email.split(",")
+        email = email+"\n"
         if not "admin" in email:
-            email = email.tuple()
-            self._emailListbox.insert(END, email)
+            self.emailList.append(email)
+            emailFile.write(email)
+            emailFile.close()
+            self._emailListbox.insert(END, (emailComposite[0], emailComposite[0]))
+            self.update()
         else:
             self.adminEmail=email[0]
 
