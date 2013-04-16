@@ -31,13 +31,14 @@ class EmailInput(tkSimpleDialog.Dialog):
     	variable=self.adminCheckedVar,
     	command=self.adminIsChecked)
     	self.adminCheckButton.grid(row=2, columnspan=2, stick=W)
-    	
+
 
     	return self._emailEntry
      
     def adminIsChecked(self, event=None):
         if self.adminCheckedVar:
            self.adminStr = "admin"
+           self._imageOnlyStr = "N"
         else:
            self.adminStr = ""
 
@@ -57,7 +58,7 @@ class EmailInput(tkSimpleDialog.Dialog):
             return 0
         
     def apply(self):
-        self.result = str(self._emailEntered.get()+ " "+ self._imageOnlyStr)
+        self.result = ",".join(self._emailEntered.get(),self._imageOnlyStr)
 
     def get(self):
         return self.result
