@@ -1,0 +1,6 @@
+dependencies:
+Tkinter: apt-get install python-tk
+ImageTk: sudo apt-get install python-imaging-tk
+python 2.7
+
+
