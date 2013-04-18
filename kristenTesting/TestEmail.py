@@ -22,7 +22,6 @@ class EmailOptions(Toplevel):
     	self.adminEmail=""
         emailFile = open("emailTester.txt","r")
         self.emailList = emailFile.readlines()
-        print self.emailList
         emailFile.close()
     	body = Frame(self, bg="black")
     	self._initialFocus = self.body(body)
@@ -30,7 +29,7 @@ class EmailOptions(Toplevel):
     	body.pack(padx=5,pady=5)
 
     	self.buttonBox()
-
+        self.current=None
     	self.grab_set()
 
     	if not self._initialFocus:
@@ -54,13 +53,18 @@ class EmailOptions(Toplevel):
 
     	# create multiListbox to hold email list
     	self._emailListbox = MultiListbox(emailListCanvas,
-                                          (('Email', 160), ('Image Only', 70)))
+                                          (('Email', 160), ('Image Only', 70)),
+                                          command = self.deleteEmail)
         for item in self.emailList:
     	    item = item[ :-1]
     	    item = item.split(",")
-    	    print item[0]+' '+item[1]
     	    self._emailListbox.insert(END, (item[0], item[1]))
-    	self._emailListbox.grid(column = 0, sticky=W)
+    	self._emailListbox.grid(column = 0,columnspan=2, sticky=W)
+    	addButton = Button(emailListCanvas, text="Add",command=self.addEmail)
+    	addButton.grid(row=1,column=0)
+
+    	deleteButton = Button(emailListCanvas, text="Delete",command=self.deleteEmail)
+    	deleteButton.grid(row=1,column=1)
 
         # create canvas to hold admin email information
         adminEmailCanvas = Canvas(master)
@@ -74,26 +78,35 @@ class EmailOptions(Toplevel):
 
     def addEmail(self):
         email = EmailInput(self, title="Add Email").get()
-        emailFile = open("emailTester.txt","a")
-        emailComposite = email.split(",")
-        email = email+"\n"
-        if not "admin" in email:
-            self.emailList.append(email)
-            emailFile.write(email)
-            emailFile.close()
-            self._emailListbox.insert(END, (emailComposite[0], emailComposite[0]))
-            self.update()
-        else:
-            self.adminEmail=email[0]
+        if len(email)>0:
+            emailFile = open("emailTester.txt","a")
+            emailComposite = email.split(",")
+            emailTuple = (emailComposite[0], emailComposite[1])
+            email = email+"\n"
+            if not "admin" in email:
+                self.emailList.append(email)
+                emailFile.write(email)
+                emailFile.close()
+                self._emailListbox.insert(END, emailTuple)
+                self.update()
+            else:
+                self.adminEmail=email[0]
 
     def deleteEmail(self):
-        pass
-
-    def editEmail(self):
-        pass
+        if MsgBox.askokcancel("Delete Email?","Are you sure you want to delete selected email?"):
+            index = self.emailList[eval(self._emailListbox.curselection()[0])]
+            self.emailList.remove(index)
+            self._emailListbox.delete(0,END)
+            emailFile = open("emailTester.txt","w")
+            for item in self.emailList:
+                emailFile.write(item)
+                item = item[ :-1]
+                item = item.split(",")
+                self._emailListbox.insert(END, (item[0], item[1]))
+            emailFile.close()
 
     def cancel(self, event=None):
     	if MsgBox.askokcancel("Quit", "Are you sure you want to quit?"):
 	    self._parent.focus_set()
-    	    self.destroy()
+   	    self.destroy()
 
