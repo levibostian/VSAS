@@ -7,7 +7,7 @@ References: pythonware.com
 from Tkinter import *
 from PIL import Image, ImageTk
 import tkMessageBox as MsgBox
-from TestEmail import EmailOptions
+from EmailScreen import EmailSettings
 from TestVideo import VideoSettings
 
 root = Tk()
@@ -21,7 +21,7 @@ class Application():
         MsgBox.showinfo(title="VSAS - Help", message = helpText)
 
     def displayEmailSettings(self):
-        EmailOptions(self._master)
+        EmailSettings(self._master)
 
     def displayVideoSettings(self):
         VideoSettings(self._master)
