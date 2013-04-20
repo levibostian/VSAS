@@ -1,0 +1,7 @@
+To add an email to the list, click Add, then enter the desired email in the pop-up and check the desired checkboxes.
+
+To delete an email from the list, select the desired email and click Delete.
+
+To see this screen again, click Help.
+
+To return to the main screen, click the "X" in the corner.
