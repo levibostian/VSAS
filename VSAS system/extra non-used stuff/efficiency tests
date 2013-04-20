@@ -1,0 +1,7 @@
+import time
+
+start_time = time.time()
+for x in xrange(307000):
+    if True == True:
+        x = 4
+print time.time() - start_time, "seconds"
