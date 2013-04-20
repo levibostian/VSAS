@@ -48,8 +48,18 @@ class Application():
         if MsgBox.askokcancel("Quit", "Do you really want to quit?"):
             self._master.destroy()
 
+    def updateImage(self):
+        image = self._motion.getMostCurrentImage()
+        self.photo = ImageTk.PhotoImage(image)
+        self.label.image = self.photo
+        self.label.configure( image=self.photo )
+        root.after(10, self.updateImage)
+
     def __init__(self, master=None):
         self._master = master
+
+        self._motion = motionDetector
+
         self._master.title("VSAS")
         self._frame = Frame(self._master, height=600,width=800)
         self._frame.pack()

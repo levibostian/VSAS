@@ -1,0 +1,5 @@
+http://www.pythonware.com/products/pil/
+http://opencv.org/downloads.html
+https://pypi.python.org/pypi/numpy
+http://videocapture.sourceforge.net/
+http://ffmpeg.zeranoe.com/builds/
