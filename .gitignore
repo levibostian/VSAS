@@ -1,2 +1,4 @@
 .project
 .pydevproject
+kristenTesting/*.pyc
+*.pyc
