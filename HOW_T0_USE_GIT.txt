@@ -4,12 +4,24 @@ When you first start coding for the day, do the following to make sure you code 
 git pull
 
 When you want to add a new feature, fix a bug, etc then make a new branch:
-git branch branchName
+git branch branchName (usually name your branches as a description: createLogWindow)
 Once you have made your branch, you need to switch to it:
 git checkout branchName
+When you want to push this new branch to the remote server:
+1. make sure you have checked out into that branch using "checkout"
+2. If this is your first time pushing this branch to the server, run this:
+git push -u origin branchName
+The -u tells git to remember the credentials you type in. So next time you are on
+  this branch, you can just type:
+git push
+instead of the whole thing: git push origin branchName
+
 When you are done with your branch and you want to put it back into the final code:
 git checkout master
 git merge branchName
+If it gives you errors saying there are conflicts, you must use the kdiff3 tool I pointed
+  out to you:
+http://sourceforge.net/projects/kdiff3/
 
 When you make a new file and you would like to add it to the project:
 git add fileName
@@ -18,7 +30,10 @@ When you have completed a feature, you need to do a "commit" To do this:
 git commit -m "Type a message here on what feature or bug you completed"
 
 When you are done for the day and want to put your code onto the server for all of us to enjoy:
-git push origin branch
+The VERY FIRST TIME you push your project:
+git push -u origin branch
+Then anytime after that:
+git push 
 
 Anytime that you want to check to make sure you do not have any files to commit or add:
 git status
