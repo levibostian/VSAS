@@ -1,7 +1,5 @@
-from VSASmainScreen import *
-from MotionDetector import *
-from MotionDetectorTest import *
-from VideoRecorder  import *
+from vsasGUI.VSASmainScreen import *
+from Motion.MotionDetector import *
 
 def main():
     motion = MotionDetector()
