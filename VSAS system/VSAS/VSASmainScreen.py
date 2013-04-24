@@ -8,7 +8,8 @@ from Tkinter import *
 from PIL import Image, ImageTk
 import tkMessageBox as MsgBox
 from EmailScreen import EmailSettings
-from TestVideo import VideoSettings
+# from TestVideo import VideoSettings #only a blank screen
+from PreviousRecordingsScreen import PreviousRecordingsScreen
 # from MotionDetector import *
 
 root = Tk()
@@ -26,6 +27,9 @@ class Application():
 
     #def displayVideoSettings(self):
         #VideoSettings(self._master) #screen not operational
+
+    def logChoices(self):
+        PreviousRecordingsScreen(self._master)
 
     def buildMenu(self):
         menuBar=Menu(self._master)
@@ -107,7 +111,7 @@ class Application():
 
         logButton = Button(self._btnCanvas, text='View Previous Events')
         logButton.pack(side=LEFT,padx=4,pady=4)
-        # logButton['command']=logChoices
+        logButton['command']=logChoices
 
         helpButton = Button(self._btnCanvas, text='Help')
         helpButton.pack(side=LEFT,padx=4,pady=4)
