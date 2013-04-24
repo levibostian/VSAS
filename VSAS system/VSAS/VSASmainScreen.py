@@ -24,14 +24,14 @@ class Application():
     def displayEmailSettings(self):
         EmailSettings(self._master)
 
-    def displayVideoSettings(self):
-        VideoSettings(self._master)
+    #def displayVideoSettings(self):
+        #VideoSettings(self._master) #screen not operational
 
     def buildMenu(self):
         menuBar=Menu(self._master)
         fileMenu = Menu(menuBar, tearoff=0)
         fileMenu.add_command(label='Adjust Camera')
-        fileMenu.add_command(label='Video Settings', command=self.displayVideoSettings)
+        #fileMenu.add_command(label='Video Settings', command=self.displayVideoSettings) #screen not operational
         fileMenu.add_command(label='Email Settings', command=self.displayEmailSettings)
         fileMenu.add_command(label='View Previous Recordings')
         fileMenu.add_separator()
@@ -46,7 +46,7 @@ class Application():
         self._master.config(menu=menuBar)
 
     def closeWindow(self, event=None):
-        if MsgBox.askokcancel("Quit", "Do you really want to quit?"):
+        if MsgBox.askyesno("Quit", "Do you really want to quit?"):
             self._motion.end()
             self._master.destroy()
 
@@ -101,9 +101,9 @@ class Application():
         emailButton.pack(side=LEFT,padx=4,pady=4)
         emailButton['command']=self.displayEmailSettings
 
-        videoButton = Button(self._btnCanvas, text='Video Settings')
-        videoButton.pack(side=LEFT,padx=4,pady=2)
-        videoButton['command']=self.displayVideoSettings
+        #videoButton = Button(self._btnCanvas, text='Video Settings')
+        #videoButton.pack(side=LEFT,padx=4,pady=2)
+        #videoButton['command']=self.displayVideoSettings # screen not operational
 
         logButton = Button(self._btnCanvas, text='View Previous Events')
         logButton.pack(side=LEFT,padx=4,pady=4)

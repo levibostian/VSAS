@@ -28,8 +28,6 @@ class EmailSettings(Toplevel):
         body.pack_propagate(0)
         body.pack(padx=5,pady=5)
 
-        self.buttonBox()
-        self.current=None
         self.grab_set()
 
         self.bind("<F1>",self.displayHelp)
@@ -57,17 +55,18 @@ class EmailSettings(Toplevel):
         self._emailListbox = MultiListbox(emailListCanvas,
                                           (('Email', 160), ('Image Only', 70)),
                                           command = self.deleteEmail)
-        for item in self.emailList:
-            item = item[ :-1]
-            item = item.split(",")
-            self._emailListbox.insert(END, (item[0], item[1]))
+        if len(self.emailList) != 0:
+	    for item in self.emailList:
+                item = item[ :-1]
+            	item = item.split(",")
+           	self._emailListbox.insert(END, (item[0], item[1]))
         self._emailListbox.grid(column = 0,columnspan=3, sticky=W)
         addButton = Button(emailListCanvas, text="Add",command=self.addEmail)
         addButton.grid(row=1,column=0)
 
         deleteButton = Button(emailListCanvas, text="Delete",command=self.deleteEmail)
         deleteButton.grid(row=1,column=1)
-        
+
         helpButton = Button(emailListCanvas, text="Help", command = self.displayHelp)
         helpButton.grid(row=1,column=2)
 
@@ -76,10 +75,6 @@ class EmailSettings(Toplevel):
         adminEmailCanvas.grid(column=1)
         Label(master, text="The administrator email will receive\nall information regarding all alerts",
         fg="green",bg="black").grid(column=1, row=0)
-
-
-    def buttonBox(self):
-        pass
 
     def addEmail(self):
         email = EmailInput(self, title="Add Email").get()
@@ -109,13 +104,13 @@ class EmailSettings(Toplevel):
                 item = item.split(",")
                 self._emailListbox.insert(END, (item[0], item[1]))
             emailFile.close()
-    
+
     def displayHelp(self, event=None):
         helpText = open("EmailScreenHelp.txt","r").read()
         MsgBox.showinfo(title="VSAS Email Settings - Help", message=helpText)
 
     def cancel(self, event=None):
-        if MsgBox.askokcancel("Done?",
+        if MsgBox.askyesno("Done?",
                               "All changes have been saved.\nReturn to VSAS Main?"):
             self._parent.focus_set()
             self.destroy()
