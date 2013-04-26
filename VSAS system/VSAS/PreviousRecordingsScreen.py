@@ -1,5 +1,9 @@
 """
 Previous Recordings Screen
+Author: Kristen Nielsen
+Email: kristen.e.nielsen@gmail.com
+Patterned after tkSimpleDialog
+This is called by the main screen and calls the screen that lists out the previous events
 """
 
 from Tkinter import *
@@ -7,7 +11,7 @@ import tkMessageBox as MsgBox
 from PreviousRecordingsListScreen import PreviousRecordingsListScreen
 from datetime import date
 
-class PreviousRecordingsScreen(Toplevel):
+class PreviousRecordingsScreen(Toplevel): 
     def __init__(self,parent):
         Toplevel.__init__(self,parent,height=400,width=400)
         self.transient(parent)
@@ -23,7 +27,7 @@ class PreviousRecordingsScreen(Toplevel):
 
         self.grab_set()
 
-        #self.bind("<F1>",self.dispayHelp)
+        self.bind("<F1>",self.displayHelp)
 
         if not self._initialFocus:
             self._initialFocus = self
@@ -36,7 +40,7 @@ class PreviousRecordingsScreen(Toplevel):
         self._initialFocus.focus_set()
 
         self._parent.wait_window(self)
-        
+
     def body(self, master):
 
     	self.result = None
@@ -67,7 +71,11 @@ class PreviousRecordingsScreen(Toplevel):
 
         w = Button(box, text="OK", width=10, command = self.ok,
                    default=ACTIVE)
-        w.pack(side=LEFT, padx=5, pady =5)
+        w.pack(side=LEFT, padx=5, pady=5)
+
+        w = Button(box, text="Help", width=10, command=self.displayHelp)
+        w.pack(side=LEFT, padx=5, pady=5)
+
         w = Button(box, text="Cancel",width=10,command=self.cancel)
         w.pack(side=LEFT, padx=5, pady=5)
 
@@ -108,6 +116,10 @@ class PreviousRecordingsScreen(Toplevel):
             newYear -= 1
         self.result = str(date(newYear,newMonth,newDay))
 
+    def displayHelp(self, event=None):
+    	helpText = open("PreviousRecordingsHelp.txt","r").read()
+        MsgBox.showinfo(title="VSAS Previous Events - Help", message=helpText)
+
     def ok(self, event=None):
 
         if not self.validate():
@@ -123,7 +135,7 @@ class PreviousRecordingsScreen(Toplevel):
 
     def apply(self):
         self.calculateDate()
-        previousRecordingsList = open("testPreviousRecordings.txt","r").readlines()
+        previousRecordingsList = open("testPreviousRecordings.txt","r").readlines() # change filename when before actual file is created
         listOfEvents = []
         for item in previousRecordingsList:
             index = previousRecordingsList.index(item)
