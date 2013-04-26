@@ -2,6 +2,8 @@ To adjust the position of the camera, click "Adjust Camera."
 
 To add, remove, or disable email addresses, click "Email Settings."
 
+To edit video settings, such as size tolerance, duration tolerance, and dead areas, click "Video Settings."
+
 To view a list of previously recorded events, click "View Previous Events."
 
 To view this screen again, click "Help."

@@ -75,10 +75,17 @@ class MotionDetector():
     def end(self):
         self._stopRecording = True
 
+    def aboveTimeLimit(self, startTime):
+        (time.time() - startTime) > self._defaultTimeLimit
+
     def detect( self ):
         initialImage = self.adjustCamera( self._cam )
-        # initialImage.save('initialImage.jpg')
+        initialImage.save('initialImage.jpg')
+
+        startTime = time.time()
+
         while True:
+            print str(time.time() - startTime) + " => " + str(self._defaultTimeLimit)
             self._currentImage = self._cam.getImage()
             compared           = compare_images( initialImage, 
                                                  self._currentImage, 
@@ -87,9 +94,11 @@ class MotionDetector():
             if self._stopRecording:
                 del self._detectedImages
                 break
-            elif not self._recording and len(self._detectedImages) > 0:
+            elif (not self._recording and len(self._detectedImages) > 0) or self.aboveTimeLimit(startTime): 
+            #this could look better
                 self.recordOutToVideo()
                 self._detectedImages = []
+                startTime = time.time()
                 #clear memory
             elif self.overThreshold( compared, 20000 ): #recording
                 print "recording..."
