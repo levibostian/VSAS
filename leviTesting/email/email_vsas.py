@@ -1,5 +1,5 @@
 """  
-File: email.py
+File: email_vsas.py
 Author: Levi Bostian (bostianl@uni.edu)
 Description: Class for sending emails.
              ***NOTE***
@@ -8,7 +8,12 @@ Description: Class for sending emails.
              Following commands to get to work:
              emailObj = SendEmail()
              emailObj.setRecipient("test@test.com")
-             emailObj.setSubject("test subject");
+             emailObj.setSubject("test subject")
+             #set as RED, YELLOW, or ORANGE
+             emailObj.setAlertLevel("RED")
+             emailObj.setDbPhotoLink("dropbox.com/photo/link/")
+             emailObj.setDbVidLink("vsassoftware.com/videoInfoHere")
+             emailObj.setDuration("2 min 34 sec")
              emailObj.sendEmail()
 
 References: http://www.tutorialspoint.com/python/python_sending_email.htm
@@ -31,10 +36,23 @@ class SendEmail:
         self.recipient = ""
         self.header = []
         self.emailConnection = ""
+        self.alertLevel = ""
+        self.dbPhotoLink = ""
+        self.duration = ""
+        self.dbVidLink = ""
+        self.emailBody = ""
         self.setUp()
         
     def setRecipient(self, emailAddress):
         self.recipient = emailAddress
+    def setAlertLevel(self, level):
+	    self.alertLevel = level
+    def setDbPhotoLink(self, link):
+	    self.dbPhotoLink = link
+    def setDbVidLink(self, link):
+	    self.dbVidLink = link
+    def setDuration(self, length):
+	    self.duration = length
     
     def setUp(self):
         self.getPassword()
@@ -49,7 +67,6 @@ class SendEmail:
         try:
             self.emailConnection.sendmail(self.SENDER, self.recipient, self.body.as_string())
             self.emailConnection.quit()
-            print "success"
         except:
             print "Error: unable to send email"
                   
@@ -58,11 +75,8 @@ class SendEmail:
         self.body['Subject'] = self.subject
         self.body['From'] = self.SENDER
         self.body['To'] = self.recipient
-        try:
-            self.bodyFile = open('email_body.html', 'r')
-        except:
-            print "Error opening email_body.html"
-        self.body.attach(MIMEText(self.bodyFile.read(), 'html'))
+        self.setUpEmail()
+        self.body.attach(MIMEText(self.emailBody, 'html'))
         self.bodyFile.close()
        
     def getPassword(self):
@@ -77,3 +91,49 @@ class SendEmail:
         self.emailConnection.starttls()
         self.emailConnection.ehlo()
         self.emailConnection.login(self.SENDER, self.password)
+
+    def setUpEmail(self):
+        self.emailBody = """
+        <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+        <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+            <style type="text/css">
+                body {
+                    margin: 0 auto;
+                    padding: 0;
+                    width: 600px;
+                    height: 100%;
+                    background-color: #FFFFFF;
+                    text-align: center;
+                }
+                #container {
+				    height: 100%;
+				    width: 600px;
+			    }
+		    </style>
+        </head>
+        <body>
+        <h1 style="color:"""+self.alertLevel.lower()+"""; font-size: 50px;">"""+self.alertLevel+""" ALERT</h1>
+            <h3>VSAS Motion Detected</h3>
+            <img src="""+self.dbPhotoLink+" width=\"500px;\" height=\"400px;\" />"+"""
+            <table border=0 style="margin: 0 auto;">
+			<tr>
+				<th colspan=3>-Motion Details-</th>
+			</tr>
+			<tr>
+			    <th>Duration:</th>
+				<td colspan=2>"""+self.duration+"</td>"+"""
+				</tr>
+			<tr><td colspan=3></td></tr>
+			<tr>
+				<th colspan=3>Video Footage Link</th>
+			</tr>
+			<tr>
+			    <td colspan=3><a href="""+self.dbVidLink+">"+self.dbVidLink+"</a></td>"+"""
+			    </tr>
+		    </table>
+		    <h1> </h1>
+        </body>
+        </html>"""

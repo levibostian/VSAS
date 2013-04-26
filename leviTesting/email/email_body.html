@@ -20,11 +20,11 @@
 		</style>
     </head>
     <body><!-- -- -- -- -- -- -- -- -- -- --- -- body -- -- -- -- -- -- -- -- -- -- --- -->
-		<h1 style="color:red; font-size: 50px;">RED ALERT</h1>
+		<h1 style="color:"+self.alertLevel.toLower()+"; font-size: 50px;">"+self.alertLevel+" ALERT</h1>
 		<h3>VSAS Motion Detected</h3>
 		
 		<!-- Img link below, make source to dropbox photo link -->
-		<img src="http://paizo.com/image/content/PathfinderCampaignSetting/PZO9226-Dinosaur.jpg" width="500px;" height="400px;" />
+		<img src="+self.dbPhotoLink+" width="500px;" height="400px;" />
 		
 		<table border=0 style="margin: 0 auto;">
 			<tr>
@@ -32,14 +32,14 @@
 			</tr>
 			<tr>
 				<th>Duration:</th>
-				<td colspan=2>3 minutes 12 seconds</td>
+				<td colspan=2>"+self.duration+"</td>
 			</tr>
 			<tr><td colspan=3></td></tr>
 			<tr>
 				<th colspan=3>Video Footage Link</th>
 			</tr>
 			<tr>
-				<td colspan=3><a href="www.dropbox.com/video/file">www.dropbox.com/video/file</a></td>
+				<td colspan=3><a href="+self.dbVidLink+">"+self.dbVidLink+"</a></td>
 			</tr>
 		</table>
 		<h1> </h1>
