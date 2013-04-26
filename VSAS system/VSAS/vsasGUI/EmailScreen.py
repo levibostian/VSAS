@@ -115,8 +115,8 @@ class EmailSettings(Toplevel):
         MsgBox.showinfo(title="VSAS Email Settings - Help", message=helpText)
 
     def cancel(self, event=None):
-        if MsgBox.askokcancel("Done?",
-                              "All changes have been saved.\nReturn to VSAS Main?"):
+        if MsgBox.askyesno("Done?",
+                           "All changes have been saved.\nReturn to VSAS Main?"):
             self._parent.focus_set()
             self.destroy()
 

@@ -10,5 +10,7 @@ def main():
     vsas = Application(motion, root)
     vsasThread = threading.Thread(None, vsas)
     vsasThread.start()
+
+    
     
 main() 
