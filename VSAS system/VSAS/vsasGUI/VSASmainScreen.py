@@ -34,10 +34,10 @@ class Application():
     def buildMenu(self):
         menuBar=Menu(self._master)
         fileMenu = Menu(menuBar, tearoff=0)
-        fileMenu.add_command(label='Adjust Camera')
+        #fileMenu.add_command(label='Adjust Camera')
         #fileMenu.add_command(label='Video Settings', command=self.displayVideoSettings) #screen not operational
         fileMenu.add_command(label='Email Settings', command=self.displayEmailSettings)
-        fileMenu.add_command(label='View Previous Recordings')
+        fileMenu.add_command(label='View Previous Recordings', command=logChoices)
         fileMenu.add_separator()
         fileMenu.add_command(label="Exit", command=self.closeWindow)
         menuBar.add_cascade(label="File", menu=fileMenu)
@@ -96,9 +96,9 @@ class Application():
         self._btnCanvas = Canvas(self._frame)
         self._btnCanvas.pack()
 
-        adjustCameraButton = Button(self._btnCanvas, text= "Adjust Camera")
-        adjustCameraButton['bg'] = 'red'
-        adjustCameraButton.pack(side=TOP,padx=4,pady=4)
+        #adjustCameraButton = Button(self._btnCanvas, text= "Adjust Camera") #Nothing has been done with this
+        #adjustCameraButton['bg'] = 'red'
+        #adjustCameraButton.pack(side=TOP,padx=4,pady=4)
         # adjustCameraButton['command']
 
         emailButton = Button(self._btnCanvas, text='Email Settings')
