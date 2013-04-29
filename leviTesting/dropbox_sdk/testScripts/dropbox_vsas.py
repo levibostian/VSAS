@@ -77,7 +77,7 @@ class DropboxUploader:
             jsonData = self.connection.media('/fileUploader_linkCreator/'+self.fileName)
             jsonDataString = json.dumps(jsonData)#encode JSON data
             jsonDataDecoded = json.loads(jsonDataString)#decode JSON data
-            return dropboxURL = jsonDataDecoded["url"]
+            return jsonDataDecoded["url"]
         except:
             return "filePath argument not found in Dropbox"    
 
