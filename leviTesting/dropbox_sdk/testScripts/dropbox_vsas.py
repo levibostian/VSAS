@@ -9,7 +9,8 @@ Description: Class uploading data to Dropbox
              dropboxObj = DropboxUploader()
              dropboxObj.authenticate()
              dropboxObj.uploadFile("testFile.txt")
-             fileURL = dropboxObj.getLink("testFile.txt") #returns URL to file
+             fileURL = dropboxObj.getVSASLink("testFile.txt") #returns URL to file
+             fileURL = dropboxOjb.getDBLink("testFile.txt") #for photo
 
 print test
 
@@ -25,6 +26,8 @@ class DropboxUploader:
         self.APP_SECRET = '8rguqnx7oqwjqtm'
         # ACCESS_TYPE should be 'dropbox' or 'app_folder' as configured for your app
         self.ACCESS_TYPE = 'app_folder'
+        self.url = ""
+        self.fileName = ""
 
     def authenticate(self):
         token_file = open('dropbox_token.txt', 'r')
@@ -44,18 +47,39 @@ class DropboxUploader:
         else:
             self.filePath = filePath
         file = open(self.filePath)
-        return self.connection.put_file('/fileUploader_linkCreator/'+self.filePath, file)
+        self.getFileName(filePath)
+        return self.connection.put_file('/fileUploader_linkCreator/'+self.fileName, file)
 
-    def getLink(self, fileLocation):
+    def getFileName(self, filePath):
+        split = filePath.split("/")
+        self.fileName = split[-1]
+
+    def getVSASLink(self, fileLocation):
         if fileLocation[0:1] == '/':
             fileLocation = fileLocation[1:]
+        self.getFileName(fileLocation)
         try:
-            jsonData = self.connection.media('/fileUploader_linkCreator/'+fileLocation)
+            jsonData = self.connection.media('/fileUploader_linkCreator/'+self.fileName)
             jsonDataString = json.dumps(jsonData)#encode JSON data
             jsonDataDecoded = json.loads(jsonDataString)#decode JSON data
-            return jsonDataDecoded["url"] #return JUST the URL of link
+            dropboxURL = jsonDataDecoded["url"]
+            dropboxURLSplit = dropboxURL.split("/")
+            self.url = "http://vsassoftware.com/video/index.php?id=" + dropboxURLSplit[5] + "&path=" + self.fileName
+            return self.url
         except:
             return "filePath argument not found in Dropbox"
+
+    def getDBLink(self, fileLocation):
+        if fileLocation[0:1] == '/':
+            fileLocation = fileLocation[1:]
+        self.getFileName(fileLocation)
+        try:
+            jsonData = self.connection.media('/fileUploader_linkCreator/'+self.fileName)
+            jsonDataString = json.dumps(jsonData)#encode JSON data
+            jsonDataDecoded = json.loads(jsonDataString)#decode JSON data
+            return dropboxURL = jsonDataDecoded["url"]
+        except:
+            return "filePath argument not found in Dropbox"    
 
     def getAuthenticationURL(self):
         self.request_token = self.sess.obtain_request_token()
