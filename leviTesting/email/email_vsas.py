@@ -77,7 +77,7 @@ class SendEmail:
         self.body['To'] = self.recipient
         self.setUpEmail()
         self.body.attach(MIMEText(self.emailBody, 'html'))
-        self.bodyFile.close()
+        #self.bodyFile.close()
        
     def getPassword(self):
         # receive encrypted email password from password file
