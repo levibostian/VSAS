@@ -1,5 +1,12 @@
 .project
+
 .pydevproject
+
 kristenTesting/*.pyc
+
 *.pyc
+
 leviTesting/*.pyc
+
+*.avi
+VSAS \system/VSAS/videos/*.avi
