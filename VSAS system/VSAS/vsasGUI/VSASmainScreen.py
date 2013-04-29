@@ -37,7 +37,7 @@ class Application():
         #fileMenu.add_command(label='Adjust Camera')
         #fileMenu.add_command(label='Video Settings', command=self.displayVideoSettings) #screen not operational
         fileMenu.add_command(label='Email Settings', command=self.displayEmailSettings)
-        fileMenu.add_command(label='View Previous Recordings', command=logChoices)
+        fileMenu.add_command(label='View Previous Recordings', command=self.logChoices)
         fileMenu.add_separator()
         fileMenu.add_command(label="Exit", command=self.closeWindow)
         menuBar.add_cascade(label="File", menu=fileMenu)
