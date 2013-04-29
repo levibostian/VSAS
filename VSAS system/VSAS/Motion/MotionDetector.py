@@ -5,6 +5,8 @@ from cv2 import *
 import numpy
 import threading
 import datetime
+from dropbox.dropbox_vsas import DropboxUploader
+from email_vsas.email_vsas import SendEmail
 
 class MotionDetector(): 
     def __init__(self):
@@ -14,6 +16,7 @@ class MotionDetector():
         self._recording        = False
         self._defaultTimeLimit = 5 * 60
         self._stopRecording    = False
+        self._timeStamp        = ""
 
     def __call__(self):
         self.detect()
@@ -57,14 +60,14 @@ class MotionDetector():
         cvImages = self.convertImagesToCv( self._detectedImages )
         frame = cvImages[0]
         ts = time.time()
-        st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')+".avi"
-        st = st.replace(":", ";")
-        videoName = "videos/" + st
-        video_out = cv.CreateVideoWriter( videoName, #make it add to subfolder..
+        self._timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H:%M:%S')+".avi"
+        self._timeStamp = self._timeStamp.replace(":", "-")
+        self._timeStamp = "videos/" + self._timeStamp
+        video_out = cv.CreateVideoWriter( self._timeStamp, #make it add to subfolder..
                                           cv.CV_FOURCC('I','4','2','0'), 
                                           2.0, 
                                           cv.GetSize(frame), 
-                                          1)
+                                          1 )
         for item in cvImages:
             frame = item
             cv.WriteFrame( video_out, frame )
@@ -103,8 +106,35 @@ class MotionDetector():
                 print "\n\nEND RECORDING!\n\n"
                 self.recordOutToVideo()
                 self._detectedImages = []
-                startTime = 0
+
+                #dropbox uploading done here
+                dropboxPic = DropboxUploader()
+                dropboxVid = DropboxUploader()
+
+                dropboxPic.authenticate()
+                dropboxVid.authenticate()
+
+                picLocation = "initialImage.jpg"
+                dropboxPic.uploadFile( picLocation )
+                dropboxVid.uploadFile(self._timeStamp)
+
+                picURL = dropboxPic.getDBLink( picLocation )
+                vidURL = dropboxVid.getVSASLink( self._timeStamp )
+
+                #email done here
+                emailSender = SendEmail()
+                emailSender.setRecipient( "tbrown@uni.edu" )
+                emailSender.setSubject("VSAS Motion Detected!")
+                emailSender.setAlertLevel("RED")
+                emailSender.setDbPhotoLink( picURL )
+                emailSender.setDbVidLink( vidURL )
+                emailSender.setDuration(str(startTime) + " secs")
+                emailSender.sendEmail()
+
+
                 #clear memory
+                startTime = 0
+
             elif self.overThreshold( compared, 20000 ): #recording
                 print "recording..."
                 if startTime == 0:
