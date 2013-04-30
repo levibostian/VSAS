@@ -19,7 +19,7 @@ class Application():
         MsgBox.showinfo(title="VSAS - About", message = text)
         
     def displayHelp(self, event=None):
-        helpText = open("MainScreenHelp.txt", 'r').read()
+        helpText = open("vsasGUI/MainScreenHelp.txt", 'r').read()
         MsgBox.showinfo(title="VSAS - Help", message = helpText)
 
     def displayEmailSettings(self):

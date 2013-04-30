@@ -81,7 +81,7 @@ class MotionDetector():
     def aboveTimeLimit(self, startTime):
         if startTime == 0: 
             return False
-        print time.time() - startTime
+        # print time.time() - startTime
         return (time.time() - startTime) > self._defaultTimeLimit
 
     def detect( self ):
@@ -97,7 +97,7 @@ class MotionDetector():
                                                  self._currentImage, 
                                                  70, 
                                                  ANY_2RGB )
-            print self.aboveTimeLimit(startTime)
+            # print self.aboveTimeLimit(startTime)
             if self._stopRecording:
                 del self._detectedImages
                 break
@@ -142,7 +142,7 @@ class MotionDetector():
                 self._recording = True
                 self._detectedImages.append( self._currentImage )
             else: #not recording
-                # print "not recording..."
+                print "not recording..."
                 self._recording = False
             
 

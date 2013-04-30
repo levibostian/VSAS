@@ -20,7 +20,7 @@ class EmailSettings(Toplevel):
         self._parent = parent
 
         self.adminEmail=""
-        emailFile = open("emailTester.txt","r")
+        emailFile = open("vsasGUI/emailTester.txt","r")
         self.emailList = emailFile.readlines()
         emailFile.close()
         body = Frame(self, bg="black")
