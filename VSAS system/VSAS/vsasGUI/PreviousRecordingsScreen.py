@@ -117,7 +117,7 @@ class PreviousRecordingsScreen(Toplevel):
         self.result = str(date(newYear,newMonth,newDay))
 
     def displayHelp(self, event=None):
-    	helpText = open("PreviousRecordingsHelp.txt","r").read()
+    	helpText = open("vsasGUI/PreviousRecordingsHelp.txt","r").read()
         MsgBox.showinfo(title="VSAS Previous Events - Help", message=helpText)
 
     def ok(self, event=None):
@@ -135,7 +135,7 @@ class PreviousRecordingsScreen(Toplevel):
 
     def apply(self):
         self.calculateDate()
-        previousRecordingsList = open("testPreviousRecordings.txt","r").readlines() # change filename when before actual file is created
+        previousRecordingsList = open("vsasGUI/testPreviousRecordings.txt","r").readlines() # change filename when before actual file is created
         listOfEvents = []
         for item in previousRecordingsList:
             index = previousRecordingsList.index(item)
