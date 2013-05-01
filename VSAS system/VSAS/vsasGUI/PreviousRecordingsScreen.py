@@ -151,7 +151,5 @@ class PreviousRecordingsScreen(Toplevel):
             PreviousRecordingsListScreen(self._parent, listOfEvents)
 
     def cancel(self, event = None):
-        if MsgBox.askyesno("Leave now?",
-                           "Do you want to leave?"):
-            self._parent.focus_set()
-            self.destroy()
+        self._parent.focus_set()
+        self.destroy()
