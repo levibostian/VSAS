@@ -33,6 +33,8 @@ class PreviousRecordingsListScreen(Toplevel):
 
         self.protocol("WM_DELETE_WINDOW", self.cancel)
 
+        self.bind("<F1>", self.displayHelp)
+
         self.geometry("+%d+%d" % (parent.winfo_rootx()+50,
                                   parent.winfo_rooty()+50))
 
@@ -58,12 +60,14 @@ class PreviousRecordingsListScreen(Toplevel):
     def populate(self,frame):
         Label(frame,text="DATE").grid(row=0,column=0)
         Label(frame,text="SECURITY THREAT").grid(row=0,column=1)
-        Label(frame,text="DURATION").grid(row=0,column=2)
+        Label(frame,text="DURATION (sec)").grid(row=0,column=2)
+        Label(frame,text="LINK").grid(row=0,column=3)
         for row in xrange(1,len(self._listOfEvents)):
             item = self._listOfEvents[row-1]
             Label(frame, text=item[0]).grid(row=row, column=0)
             Label(frame, text=item[1]).grid(row=row, column=1)
             Label(frame, text=item[2]).grid(row=row, column=2)
+            Label(frame, text=item[3]).grid(row=row, column=3)
 
     def OnFrameConfigure(self,event):
         self._canvas.configure(scrollregion=self._canvas.bbox('all'))
@@ -74,11 +78,16 @@ class PreviousRecordingsListScreen(Toplevel):
 
         Button(box, text="OK", width = 10, command=self.cancel,
                    default=ACTIVE).pack(side=LEFT)
+        Button(box, text="Help", width = 10, command=self.displayHelp).pack(side=LEFT)
 
         self.bind("&lt;Return>", self.cancel)
         self.bind("&lt;Escape>", self.cancel)
 
         box.pack()
+
+    def displayHelp(self, event=None):
+        helpText = open("vsasGUI/PreviousRecordingsListHelp.txt", "r").read()
+        MsgBox.showinfo(title="VSAS Previous Events - Help", message=helpText)
 
     def cancel(self, event=None):
 
