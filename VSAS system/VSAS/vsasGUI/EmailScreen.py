@@ -20,6 +20,7 @@ class EmailSettings(Toplevel):
         self._parent = parent
 
         self.adminEmail=""
+        
         emailFile = open("vsasGUI/emailTester.txt","r")
         self.emailList = emailFile.readlines()
         emailFile.close()
@@ -71,11 +72,10 @@ class EmailSettings(Toplevel):
         helpButton = Button(emailListCanvas, text="Help", command = self.displayHelp)
         helpButton.grid(row=1,column=2)
 
-        # create canvas to hold admin email information
-        adminEmailCanvas = Canvas(master)
-        adminEmailCanvas.grid(column=1)
         Label(master, text="The administrator email will receive\nall information regarding all alerts",
         fg="green",bg="black").grid(column=1, row=0)
+        self.adminEmailDisplay = Label(master, text=self.adminEmail)
+        self.adminEmailDisplay.grid(column=1, row=1)
 
 
     def buttonBox(self):
@@ -96,6 +96,8 @@ class EmailSettings(Toplevel):
                 self.update()
             else:
                 self.adminEmail=email[0]
+                self.adminEmailDisplay["text"] = self.adminEmail
+                self.update()
 
     def deleteEmail(self):
         if MsgBox.askokcancel("Delete Email?","Are you sure you want to delete selected email?"):
