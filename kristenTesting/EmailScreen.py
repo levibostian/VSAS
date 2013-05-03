@@ -75,6 +75,8 @@ class EmailSettings(Toplevel):
         adminEmailCanvas.grid(column=1)
         Label(master, text="The administrator email will receive\nall information regarding all alerts",
         fg="green",bg="black").grid(column=1, row=0)
+        self.adminEmailDisplay = Label(master, text=self.adminEmail)
+        self.adminEmailDisplay.grid(column=1,row=1)
 
     def addEmail(self):
         email = EmailInput(self, title="Add Email").get()
@@ -91,9 +93,11 @@ class EmailSettings(Toplevel):
                 self.update()
             else:
                 self.adminEmail=email[0]
+                self.adminEmailDisplay["text"]=self.adminEmail
+                self.update()
 
     def deleteEmail(self):
-        if MsgBox.askokcancel("Delete Email?","Are you sure you want to delete selected email?"):
+        if MsgBox.askyesno("Delete Email?","Are you sure you want to delete selected email?"):
             index = self.emailList[eval(self._emailListbox.curselection()[0])]
             self.emailList.remove(index)
             self._emailListbox.delete(0,END)
