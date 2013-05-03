@@ -100,7 +100,7 @@ class EmailSettings(Toplevel):
                 self.update()
 
     def deleteEmail(self):
-        if MsgBox.askokcancel("Delete Email?","Are you sure you want to delete selected email?"):
+        if MsgBox.askyesno("Delete Email?","Are you sure you want to delete selected email?"):
             index = self.emailList[eval(self._emailListbox.curselection()[0])]
             self.emailList.remove(index)
             self._emailListbox.delete(0,END)
