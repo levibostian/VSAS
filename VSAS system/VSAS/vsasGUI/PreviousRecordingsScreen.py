@@ -148,7 +148,7 @@ class PreviousRecordingsScreen(Toplevel):
             MsgBox.showinfo("No Events",
                             "There are currently no events to show for this time period.")
         else:
-            PreviousRecordingsListScreen(self._parent, listOfEvents)
+            PreviousRecordingsListScreen(self._parent, listOfEvents, self._variable.get())
 
     def cancel(self, event = None):
         self._parent.focus_set()
