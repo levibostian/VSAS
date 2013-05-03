@@ -9,10 +9,10 @@ import tkSimpleDialog
 
 class PreviousRecordingsListScreen(Toplevel):
 
-    def __init__(self, parent, listOfEvents):
+    def __init__(self, parent, listOfEvents, interval):
         Toplevel.__init__(self,parent,height=400,width=400)
         self.transient(parent)
-        self.title("VSAS - View Previous Recordings")
+        self.title("VSAS - View Previous Recordings " + interval.title())
 
         self._parent = parent
 
@@ -26,7 +26,8 @@ class PreviousRecordingsListScreen(Toplevel):
 
         self.grab_set()
 
-        self.bind("<F1>",self.dispayHelp)
+        self.bind("<F1>",self.displayHelp)
+
 
         if not self._initialFocus:
             self._initialFocus = self
@@ -67,7 +68,9 @@ class PreviousRecordingsListScreen(Toplevel):
             Label(frame, text=item[0]).grid(row=row, column=0)
             Label(frame, text=item[1]).grid(row=row, column=1)
             Label(frame, text=item[2]).grid(row=row, column=2)
-            Label(frame, text=item[3]).grid(row=row, column=3)
+            text = Text(frame, height=1)
+            text.grid(row=row, column=3, rowspan=1)
+            text.insert(INSERT, item[3])
 
     def OnFrameConfigure(self,event):
         self._canvas.configure(scrollregion=self._canvas.bbox('all'))

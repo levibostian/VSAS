@@ -25,7 +25,7 @@ class Application():
         EmailSettings(self._master)
 
     def logChoices(self):
-        PreviousRecordingsScreen(self)
+        PreviousRecordingsScreen(self._master)
 
     #def displayVideoSettings(self):
         #VideoSettings(self._master)
