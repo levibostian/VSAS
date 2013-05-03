@@ -1,0 +1,5 @@
+To see a list of previous events, elect the length of time for which you want to see records and click OK.
+
+To return to the main screen, press Cancel or Escape.
+
+To see this screen again, click Help or F1.

@@ -8,7 +8,8 @@ from Tkinter import *
 from PIL import Image, ImageTk
 import tkMessageBox as MsgBox
 from EmailScreen import EmailSettings
-from TestVideo import VideoSettings
+from PreviousRecordingsScreen import PreviousRecordingsScreen
+#from TestVideo import VideoSettings
 
 root = Tk()
 class Application():
@@ -23,14 +24,17 @@ class Application():
     def displayEmailSettings(self):
         EmailSettings(self._master)
 
-    def displayVideoSettings(self):
-        VideoSettings(self._master)
+    def logChoices(self):
+        PreviousRecordingsScreen(self)
+
+    #def displayVideoSettings(self):
+        #VideoSettings(self._master)
 
     def buildMenu(self):
         menuBar=Menu(self._master)
         fileMenu = Menu(menuBar, tearoff=0)
-        fileMenu.add_command(label='Adjust Camera')
-        fileMenu.add_command(label='Video Settings', command=self.displayVideoSettings)
+        #fileMenu.add_command(label='Adjust Camera')
+        #fileMenu.add_command(label='Video Settings', command=self.displayVideoSettings)
         fileMenu.add_command(label='Email Settings', command=self.displayEmailSettings)
         fileMenu.add_command(label='View Previous Recordings')
         fileMenu.add_separator()
@@ -45,7 +49,7 @@ class Application():
         self._master.config(menu=menuBar)
 
     def closeWindow(self, event=None):
-        if MsgBox.askokcancel("Quit", "Do you really want to quit?"):
+        if MsgBox.askyesno("Quit", "Do you really want to quit?"):
             self._master.destroy()
 
     def updateImage(self):
@@ -58,7 +62,7 @@ class Application():
     def __init__(self, master=None):
         self._master = master
 
-        self._motion = motionDetector
+        #self._motion = motionDetector
 
         self._master.title("VSAS")
         self._frame = Frame(self._master, height=600,width=800)
@@ -86,22 +90,22 @@ class Application():
         self._btnCanvas = Canvas(self._frame)
         self._btnCanvas.pack()
 
-        adjustCameraButton = Button(self._btnCanvas, text= "Adjust Camera")
-        adjustCameraButton['bg'] = 'red'
-        adjustCameraButton.pack(side=TOP,padx=4,pady=4)
+        #adjustCameraButton = Button(self._btnCanvas, text= "Adjust Camera")
+        #adjustCameraButton['bg'] = 'red'
+        #adjustCameraButton.pack(side=TOP,padx=4,pady=4)
         # adjustCameraButton['command']
 
         emailButton = Button(self._btnCanvas, text='Email Settings')
         emailButton.pack(side=LEFT,padx=4,pady=4)
         emailButton['command']=self.displayEmailSettings
 
-        videoButton = Button(self._btnCanvas, text='Video Settings')
-        videoButton.pack(side=LEFT,padx=4,pady=2)
-        videoButton['command']=self.displayVideoSettings
+        #videoButton = Button(self._btnCanvas, text='Video Settings')
+        #videoButton.pack(side=LEFT,padx=4,pady=2)
+        #videoButton['command']=self.displayVideoSettings
 
         logButton = Button(self._btnCanvas, text='View Previous Events')
         logButton.pack(side=LEFT,padx=4,pady=4)
-        # logButton['command']=logChoices
+        logButton['command']=self.logChoices
 
         helpButton = Button(self._btnCanvas, text='Help')
         helpButton.pack(side=LEFT,padx=4,pady=4)
