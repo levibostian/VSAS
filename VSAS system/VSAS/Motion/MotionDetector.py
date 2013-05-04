@@ -7,6 +7,7 @@ import threading
 import datetime
 from dropbox.dropbox_vsas import DropboxUploader
 from email_vsas.email_vsas import SendEmail
+import subprocess
 
 class MotionDetector(): 
     def __init__(self):
@@ -86,7 +87,7 @@ class MotionDetector():
 
     def detect( self ):
         initialImage = self.adjustCamera( self._cam )
-        initialImage.save('initialImage.jpg')
+        # initialImage.save('initialImage.jpg')
 
         startTime = 0
 
@@ -105,7 +106,15 @@ class MotionDetector():
             #this could look better
                 print "\n\nEND RECORDING!\n\n"
                 self.recordOutToVideo()
+                initialMotionName = "initImage-" + str(self._timeStamp[7:-4]) + ".jpg"
+                initialMotion.save( initialMotionName )
                 self._detectedImages = []
+
+                command = 'ffmpeg -i ' + str(self._timeStamp) + ' -acodec libmp3lame -ab 192 ' + str(self._timeStamp)[:-4] + '.mov'
+                p = subprocess.Popen(command.split())
+                p.wait()
+                #video is now .mov
+                self._timeStamp = self._timeStamp[:-4] + ".mov"
 
                 #dropbox uploading done here
                 dropboxPic = DropboxUploader()
@@ -114,9 +123,9 @@ class MotionDetector():
                 dropboxPic.authenticate()
                 dropboxVid.authenticate()
 
-                picLocation = "initialImage.jpg"
+                picLocation = initialMotionName
                 dropboxPic.uploadFile( picLocation )
-                dropboxVid.uploadFile(self._timeStamp)
+                dropboxVid.uploadFile( self._timeStamp )
 
                 picURL = dropboxPic.getDBLink( picLocation )
                 vidURL = dropboxVid.getVSASLink( self._timeStamp )
@@ -136,6 +145,8 @@ class MotionDetector():
                 startTime = 0
 
             elif self.overThreshold( compared, 20000 ): #recording
+                if len(self._detectedImages) == 1:
+                    initialMotion = self.getMostCurrentImage()
                 print "recording..."
                 if startTime == 0:
                     startTime = time.time()
