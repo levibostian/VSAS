@@ -96,6 +96,11 @@ class Application():
         self._btnCanvas = Canvas(self._frame)
         self._btnCanvas.pack()
 
+        logFile = open("vsasGUI/testPreviousRecordings.txt","r")
+        mostRecent = logFile.readline()
+        logFile.close()
+        Label(self._btnCanvas, text = mostRecent.replace(","," ")).pack(side=TOP)
+
         #adjustCameraButton = Button(self._btnCanvas, text= "Adjust Camera") #Nothing has been done with this
         #adjustCameraButton['bg'] = 'red'
         #adjustCameraButton.pack(side=TOP,padx=4,pady=4)
