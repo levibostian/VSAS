@@ -62,7 +62,7 @@ class Application():
         root.after(10, self.updateImage)
 
     def __call__(self):#this is ran when a Thread is created
-        root.after(10, self.updateImage)    
+        root.after(10, self.updateImage)
         root.mainloop()
 
     def __init__(self, motionDetector, master=None):
@@ -76,7 +76,7 @@ class Application():
         self._frame.pack_propagate(0)
 
         self.buildMenu()
-        
+
         self._master.bind("<F1>", self.displayHelp)
         self._master.bind("<Escape>", self.closeWindow)
         self._master.protocol("WM_DELETE_WINDOW", self.closeWindow)
@@ -96,11 +96,11 @@ class Application():
         self._btnCanvas = Canvas(self._frame)
         self._btnCanvas.pack()
 
-        while self._motion.isRecording:
-            recordingLabel = Label(self_.btnCanvas, text = "RECORDING")
+        while self._motion.isRecording():
+            recordingLabel = Label(self._btnCanvas, text = "RECORDING")
             recordingLabel.pack(side=TOP)
             self.update()
-        
+
         #adjustCameraButton = Button(self._btnCanvas, text= "Adjust Camera") #Nothing has been done with this
         #adjustCameraButton['bg'] = 'red'
         #adjustCameraButton.pack(side=TOP,padx=4,pady=4)
