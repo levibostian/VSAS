@@ -38,21 +38,24 @@ class SendEmail:
         self.emailConnection = ""
         self.alertLevel = ""
         self.dbPhotoLink = ""
-        # self.duration = ""
+        self.duration = ""
         self.dbVidLink = ""
         self.emailBody = ""
+        self.date = ""
         self.setUp()
         
     def setRecipient(self, emailAddress):
         self.recipient = emailAddress
     def setAlertLevel(self, level):
-	    self.alertLevel = level
+            self.alertLevel = level
     def setDbPhotoLink(self, link):
-	    self.dbPhotoLink = link
+            self.dbPhotoLink = link
     def setDbVidLink(self, link):
-	    self.dbVidLink = link
-    # def setDuration(self, length):
-	   #  self.duration = length
+            self.dbVidLink = link
+    def setDuration(self, length):
+            self.duration = length
+        def setDate(self, date):
+            self.date = date
     
     def setUp(self):
         self.getPassword()
@@ -108,27 +111,31 @@ class SendEmail:
                     text-align: center;
                 }
                 #container {
-				    height: 100%;
-				    width: 600px;
-			    }
-		    </style>
+                                    height: 100%;
+                                    width: 600px;
+                            }
+                    </style>
         </head>
         <body>
         <h1 style="color:"""+self.alertLevel.lower()+"""; font-size: 50px;">"""+self.alertLevel+""" ALERT</h1>
             <h3>VSAS Motion Detected</h3>
             <img src="""+self.dbPhotoLink+" width=\"500px;\" height=\"400px;\" />"+"""
             <table border=0 style="margin: 0 auto;">
-			<tr>
-				<th colspan=3>-Motion Details-</th>
-			</tr>
-			<tr><td colspan=3></td></tr>
-			<tr>
-				<th colspan=3>Video Footage Link</th>
-			</tr>
-			<tr>
-			    <td colspan=3><a href="""+self.dbVidLink+">"+self.dbVidLink+"</a></td>"+"""
-			    </tr>
-		    </table>
-		    <h1> </h1>
+                        <tr>
+                                <th colspan=3>-Motion Details-</th>
+                        </tr>
+                        <tr>
+                            <th>Date:</th>
+                                <td colspan=2>"""+self.date+"</td>"+"""
+                                </tr>
+                        <tr><td colspan=3></td></tr>
+                        <tr>
+                                <th colspan=3>Video Footage Link</th>
+                        </tr>
+                        <tr>
+                            <td colspan=3><a href="""+self.dbVidLink+">"+self.dbVidLink+"</a></td>"+"""
+                            </tr>
+                    </table>
+                    <h1> </h1>
         </body>
         </html>"""

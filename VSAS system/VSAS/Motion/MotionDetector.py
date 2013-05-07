@@ -18,6 +18,7 @@ class MotionDetector():
         self._defaultTimeLimit = 5 * 60 #make sure to change back to 5 min
         self._stopRecording    = False
         self._timeStamp        = ""
+        self._date             = ""
 
     def __call__(self):
         self.detect()
@@ -138,6 +139,9 @@ class MotionDetector():
                 emailSender.setDbPhotoLink( picURL )
                 emailSender.setDbVidLink( vidURL )
                 # emailSender.setDuration("not available")#str(int(time.time() - startTime)) + " secs")
+                # emailSender.setDuration("not available")#str(int(time.time() - startTime)) + " secs")
+                self._date = datetime.datetime.now().strftime("%Y-%m-%d")
+                emailSender.setDate(self._date)
                 emailSender.sendEmail()
 
 
