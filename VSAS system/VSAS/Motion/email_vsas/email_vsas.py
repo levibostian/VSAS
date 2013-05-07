@@ -41,6 +41,7 @@ class SendEmail:
         self.duration = ""
         self.dbVidLink = ""
         self.emailBody = ""
+        self.date = ""
         self.setUp()
         
     def setRecipient(self, emailAddress):
@@ -53,6 +54,8 @@ class SendEmail:
 	    self.dbVidLink = link
     def setDuration(self, length):
 	    self.duration = length
+	def setDate(self, date):
+	    self.date = date
     
     def setUp(self):
         self.getPassword()
@@ -122,8 +125,8 @@ class SendEmail:
 				<th colspan=3>-Motion Details-</th>
 			</tr>
 			<tr>
-			    <th>Duration:</th>
-				<td colspan=2>"""+self.duration+"</td>"+"""
+			    <th>Date:</th>
+				<td colspan=2>"""+self.date+"</td>"+"""
 				</tr>
 			<tr><td colspan=3></td></tr>
 			<tr>
