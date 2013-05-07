@@ -38,7 +38,7 @@ class SendEmail:
         self.emailConnection = ""
         self.alertLevel = ""
         self.dbPhotoLink = ""
-        self.duration = ""
+        # self.duration = ""
         self.dbVidLink = ""
         self.emailBody = ""
         self.setUp()
@@ -51,8 +51,8 @@ class SendEmail:
 	    self.dbPhotoLink = link
     def setDbVidLink(self, link):
 	    self.dbVidLink = link
-    def setDuration(self, length):
-	    self.duration = length
+    # def setDuration(self, length):
+	   #  self.duration = length
     
     def setUp(self):
         self.getPassword()
@@ -121,10 +121,6 @@ class SendEmail:
 			<tr>
 				<th colspan=3>-Motion Details-</th>
 			</tr>
-			<tr>
-			    <th>Duration:</th>
-				<td colspan=2>"""+self.duration+"</td>"+"""
-				</tr>
 			<tr><td colspan=3></td></tr>
 			<tr>
 				<th colspan=3>Video Footage Link</th>
