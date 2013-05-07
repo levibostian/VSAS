@@ -61,9 +61,9 @@ class Application():
         self._label.configure( image=self._photo )
 
         if self._motion.isRecording():
-            self._recordingLabel.configure( text="RECORDING")
+            self._recordingCanvas.configure( bg="red")
         else:
-            self._recordingLabel.configure( text="NOT RECORDING")
+            self._recordingLabel.configure( bg="gray")
         root.after(10, self.updateImage)
 
     def __call__(self):#this is ran when a Thread is created
@@ -101,8 +101,8 @@ class Application():
         self._btnCanvas = Canvas(self._frame)
         self._btnCanvas.pack()
 
-        self._recordingLabel = Label(self._btnCanvas, text = "RECORDING")
-        self._recordingLabel.pack(side=TOP)
+        self._recordingCanvas = Label(self._btnCanvas, height = 25, width = 100, bg="gray")
+        self._recordingCanvas.pack(side=TOP)
         # self.update()
 
         #adjustCameraButton = Button(self._btnCanvas, text= "Adjust Camera") #Nothing has been done with this
