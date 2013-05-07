@@ -62,7 +62,7 @@ class PreviousRecordingsListScreen(Toplevel):
         Label(frame,text="DATE").grid(row=0,column=0)
         #Label(frame,text="SECURITY THREAT").grid(row=0,column=1)
         #Label(frame,text="DURATION (sec)").grid(row=0,column=2)
-        Label(frame,text="LINK").grid(row=0,column=1)
+        Label(frame,text="LINK").grid(row=0,column,sticky=W)
         for row in xrange(1,len(self._listOfEvents)):
             item = self._listOfEvents[row-1]
             Label(frame, text=item[0]).grid(row=row, column=0)
@@ -96,4 +96,3 @@ class PreviousRecordingsListScreen(Toplevel):
 
         self._parent.focus_set()
         self.destroy()
-        
