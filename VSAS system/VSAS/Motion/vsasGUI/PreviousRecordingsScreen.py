@@ -135,7 +135,10 @@ class PreviousRecordingsScreen(Toplevel):
 
     def apply(self):
         self.calculateDate()
-        previousRecordingsList = open("vsasGUI/testPreviousRecordings.txt","r").readlines() # change filename when before actual file is created
+        previousRecordingsFile = open("vsasGUI/testPreviousRecordings.txt","r")
+		# change filename when before actual file is created
+		previousRecordingsList = previousRecordingsFile.readlines()
+		previousRecordingsFile.close()
         del previousRecordingsList[len(previousRecordingsList)-1]
         listOfEvents = []
         for item in previousRecordingsList:
