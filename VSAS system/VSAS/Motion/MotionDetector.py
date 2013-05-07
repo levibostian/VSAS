@@ -143,6 +143,7 @@ class MotionDetector():
 
                 #clear memory
                 startTime = 0
+                self._recording = False 
 
             elif self.overThreshold( compared, 20000 ): #recording
                 if len(self._detectedImages) == 1:

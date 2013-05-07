@@ -59,6 +59,11 @@ class Application():
         self._photo = ImageTk.PhotoImage(image)
         self._label.image = self._photo
         self._label.configure( image=self._photo )
+
+        if self._motion.isRecording():
+            self._recordingLabel.configure( text="RECORDING")
+        else:
+            self._recordingLabel.configure( text="NOT RECORDING")
         root.after(10, self.updateImage)
 
     def __call__(self):#this is ran when a Thread is created
@@ -96,10 +101,9 @@ class Application():
         self._btnCanvas = Canvas(self._frame)
         self._btnCanvas.pack()
 
-        while self._motion.isRecording():
-            recordingLabel = Label(self._btnCanvas, text = "RECORDING")
-            recordingLabel.pack(side=TOP)
-            self.update()
+        self._recordingLabel = Label(self._btnCanvas, text = "RECORDING")
+        self._recordingLabel.pack(side=TOP)
+        # self.update()
 
         #adjustCameraButton = Button(self._btnCanvas, text= "Adjust Camera") #Nothing has been done with this
         #adjustCameraButton['bg'] = 'red'
