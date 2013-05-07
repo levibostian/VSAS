@@ -1,5 +1,5 @@
-tbrown@uni.edu,Y
-audua@uni.edu,Y
-kristen.e.nielsen@gmail.com,N
-mueller7@uni.edu,N
-bostian@uni.edu,N
+tbrown@uni.edu
+audua@uni.edu
+kristen.e.nielsen@gmail.com
+mueller7@uni.edu
+bostian@uni.edu

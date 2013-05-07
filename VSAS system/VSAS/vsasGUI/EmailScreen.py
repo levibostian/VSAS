@@ -13,7 +13,7 @@ class EmailSettings(Toplevel):
 
     def __init__(self, parent):
         Toplevel.__init__(self, parent, height=400, width=700)
-        self.pack_propagate(0)
+        #self.pack_propagate(0)
         self.transient(parent)
         self.title("VSAS - Email Settings")
 
@@ -26,7 +26,7 @@ class EmailSettings(Toplevel):
         emailFile.close()
         body = Frame(self, bg="black")
         self._initialFocus = self.body(body)
-        #body.pack_propagate(0)
+        body.pack_propagate(0)
         body.pack(padx=5,pady=5)
 
         self.buttonBox()
@@ -59,9 +59,7 @@ class EmailSettings(Toplevel):
                                           (('Email', 160),("",1)),
                                           command = self.deleteEmail)
         for item in self.emailList:
-            item = item[ :-1]
-            item = item.split(",")
-            self._emailListbox.insert(END, (item[0],""))
+            self._emailListbox.insert(END, (item,""))
         self._emailListbox.grid(column = 0,columnspan=3, sticky=W)
         addButton = Button(emailListCanvas, text="Add",command=self.addEmail)
         addButton.grid(row=1,column=0)
@@ -102,12 +100,10 @@ class EmailSettings(Toplevel):
             self._emailListbox.delete(0,END)
             emailFile = open("emailTester.txt","w")
             for item in self.emailList:
-                emailFile.write(item)
-                item = item[ :-1]
-                item = item.split(",")
-                self._emailListbox.insert(END, (item[0], item[1]))
+                emailFile.write(item+"\n")
+                self._emailListbox.insert(END, (item,""))
             emailFile.close()
-    
+
     def displayHelp(self, event=None):
         helpText = open("EmailScreenHelp.txt","r").read()
         MsgBox.showinfo(title="VSAS Email Settings - Help", message=helpText)
