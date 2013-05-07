@@ -137,7 +137,7 @@ class MotionDetector():
                 emailSender.setAlertLevel("RED")
                 emailSender.setDbPhotoLink( picURL )
                 emailSender.setDbVidLink( vidURL )
-                emailSender.setDuration(str(startTime) + " secs")
+                emailSender.setDuration("not available")#str(int(time.time() - startTime)) + " secs")
                 emailSender.sendEmail()
 
 

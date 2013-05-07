@@ -63,7 +63,7 @@ class Application():
         if self._motion.isRecording():
             self._recordingCanvas.configure( bg="red")
         else:
-            self._recordingLabel.configure( bg="gray")
+            self._recordingCanvas.configure( bg="gray")
         root.after(10, self.updateImage)
 
     def __call__(self):#this is ran when a Thread is created
@@ -101,7 +101,7 @@ class Application():
         self._btnCanvas = Canvas(self._frame)
         self._btnCanvas.pack()
 
-        self._recordingCanvas = Label(self._btnCanvas, height = 25, width = 100, bg="gray")
+        self._recordingCanvas = Canvas(self._btnCanvas, height = 25, width = 25, bg="gray")
         self._recordingCanvas.pack(side=TOP)
         # self.update()
 

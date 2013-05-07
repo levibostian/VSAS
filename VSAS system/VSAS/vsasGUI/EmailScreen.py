@@ -91,7 +91,7 @@ class EmailSettings(Toplevel):
             self.emailList.append(email)
             emailFile.write(email)
             emailFile.close()
-            self._emailListbox.insert(END, (email,"")
+            self._emailListbox.insert(END, (email,""))
             self.update()
             
 
