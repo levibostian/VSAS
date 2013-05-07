@@ -1,5 +1,3 @@
-To adjust the position of the camera, click "Adjust Camera."
-
 To add, remove, or disable email addresses, click "Email Settings."
 
 To view a list of previously recorded events, click "View Previous Events."
