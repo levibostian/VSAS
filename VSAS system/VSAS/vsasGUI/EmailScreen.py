@@ -26,7 +26,7 @@ class EmailSettings(Toplevel):
         emailFile.close()
         body = Frame(self, bg="black")
         self._initialFocus = self.body(body)
-        body.pack_propagate(0)
+        #body.pack_propagate(0)
         body.pack(padx=5,pady=5)
 
         self.buttonBox()
@@ -93,9 +93,9 @@ class EmailSettings(Toplevel):
             emailFile.close()
             self._emailListbox.insert(END, (email,""))
             self.update()
-            
 
-    def deleteEmail(self):
+
+    def deleteEmail(self, event=None):
         if MsgBox.askyesno("Delete Email?","Are you sure you want to delete selected email?"):
             index = self.emailList[eval(self._emailListbox.curselection()[0])]
             self.emailList.remove(index)

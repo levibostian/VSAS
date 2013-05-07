@@ -61,16 +61,16 @@ class PreviousRecordingsListScreen(Toplevel):
     def populate(self,frame):
         Label(frame,text="DATE").grid(row=0,column=0)
         Label(frame,text="SECURITY THREAT").grid(row=0,column=1)
-        Label(frame,text="DURATION (sec)").grid(row=0,column=2)
-        Label(frame,text="LINK").grid(row=0,column=3)
+        #Label(frame,text="DURATION (sec)").grid(row=0,column=2)
+        Label(frame,text="LINK").grid(row=0,column=2)
         for row in xrange(1,len(self._listOfEvents)):
             item = self._listOfEvents[row-1]
             Label(frame, text=item[0]).grid(row=row, column=0)
             Label(frame, text=item[1]).grid(row=row, column=1)
-            Label(frame, text=item[2]).grid(row=row, column=2)
+            #Label(frame, text=item[2]).grid(row=row, column=2)
             text = Text(frame, height=1)
-            text.grid(row=row, column=3, rowspan=1)
-            text.insert(INSERT, item[3])
+            text.grid(row=row, column=2, rowspan=1)
+            text.insert(INSERT, item[2])
 
     def OnFrameConfigure(self,event):
         self._canvas.configure(scrollregion=self._canvas.bbox('all'))
