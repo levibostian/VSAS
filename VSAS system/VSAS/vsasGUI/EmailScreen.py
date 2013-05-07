@@ -72,10 +72,10 @@ class EmailSettings(Toplevel):
         helpButton = Button(emailListCanvas, text="Help", command = self.displayHelp)
         helpButton.grid(row=1,column=2)
 
-        Label(master, text="The administrator email will receive\nall information regarding all alerts",
-        fg="green",bg="black").grid(column=1, row=0)
-        self.adminEmailDisplay = Label(master, text=self.adminEmail)
-        self.adminEmailDisplay.grid(column=1, row=1)
+        #Label(master, text="The administrator email will receive\nall information regarding all alerts",
+        #fg="green",bg="black").grid(column=1, row=0)
+        #self.adminEmailDisplay = Label(master, text=self.adminEmail)
+        #self.adminEmailDisplay.grid(column=1, row=1)
 
 
     def buttonBox(self):
@@ -85,19 +85,15 @@ class EmailSettings(Toplevel):
         email = EmailInput(self, title="Add Email").get()
         if len(email)>0:
             emailFile = open("emailTester.txt","a")
-            emailComposite = email.split(",")
-            emailTuple = (emailComposite[0], emailComposite[1])
+            #emailComposite = email.split(",")
+            #emailTuple = (emailComposite[0], emailComposite[1])
             email = email+"\n"
-            if not "admin" in email:
-                self.emailList.append(email)
-                emailFile.write(email)
-                emailFile.close()
-                self._emailListbox.insert(END, emailTuple)
-                self.update()
-            else:
-                self.adminEmail=email[0]
-                self.adminEmailDisplay["text"] = self.adminEmail
-                self.update()
+            self.emailList.append(email)
+            emailFile.write(email)
+            emailFile.close()
+            self._emailListbox.insert(END, (email,"")
+            self.update()
+            
 
     def deleteEmail(self):
         if MsgBox.askyesno("Delete Email?","Are you sure you want to delete selected email?"):
