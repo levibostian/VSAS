@@ -15,7 +15,7 @@ class MotionDetector():
         self._detectedImages   = []
         self._currentImage     = ""#Image.open( "VSAS logo.jpg" )
         self._recording        = False
-        self._defaultTimeLimit = 5 * 60
+        self._defaultTimeLimit = 5 * 60 #make sure to change back to 5 min
         self._stopRecording    = False
         self._timeStamp        = ""
 
@@ -88,7 +88,7 @@ class MotionDetector():
     def detect( self ):
         initialImage = self.adjustCamera( self._cam )
         # initialImage.save('initialImage.jpg')
-
+        intialMotion = self.getMostCurrentImage()
         startTime = 0
 
         while True:
