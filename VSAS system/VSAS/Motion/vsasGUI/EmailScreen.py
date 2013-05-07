@@ -100,7 +100,7 @@ class EmailSettings(Toplevel):
             self._emailListbox.delete(0,END)
             emailFile = open("emailTester.txt","w")
             for item in self.emailList:
-                emailFile.write(item+"\n")
+                emailFile.write(item)
                 self._emailListbox.insert(END, (item,""))
             emailFile.close()
 
