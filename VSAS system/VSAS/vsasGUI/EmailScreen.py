@@ -20,7 +20,7 @@ class EmailSettings(Toplevel):
         self._parent = parent
 
         self.adminEmail=""
-        
+
         emailFile = open("vsasGUI/emailTester.txt","r")
         self.emailList = emailFile.readlines()
         emailFile.close()
@@ -56,19 +56,19 @@ class EmailSettings(Toplevel):
 
         # create multiListbox to hold email list
         self._emailListbox = MultiListbox(emailListCanvas,
-                                          (('Email', 160), ('Image Only', 70)),
+                                          (('Email', 160),("",1)),
                                           command = self.deleteEmail)
         for item in self.emailList:
             item = item[ :-1]
             item = item.split(",")
-            self._emailListbox.insert(END, (item[0], item[1]))
+            self._emailListbox.insert(END, (item[0],""))
         self._emailListbox.grid(column = 0,columnspan=3, sticky=W)
         addButton = Button(emailListCanvas, text="Add",command=self.addEmail)
         addButton.grid(row=1,column=0)
 
         deleteButton = Button(emailListCanvas, text="Delete",command=self.deleteEmail)
         deleteButton.grid(row=1,column=1)
-        
+
         helpButton = Button(emailListCanvas, text="Help", command = self.displayHelp)
         helpButton.grid(row=1,column=2)
 
