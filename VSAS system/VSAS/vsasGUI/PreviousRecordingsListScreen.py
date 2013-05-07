@@ -70,7 +70,7 @@ class PreviousRecordingsListScreen(Toplevel):
             #Label(frame, text=item[2]).grid(row=row, column=2)
             text = Text(frame, height=1)
             text.grid(row=row, column=1, rowspan=1)
-            text.insert(INSERT, item[2])
+            text.insert(INSERT, item[1])
 
     def OnFrameConfigure(self,event):
         self._canvas.configure(scrollregion=self._canvas.bbox('all'))

@@ -50,6 +50,7 @@ class MotionDetector():
             pilImage = images[index].save( "pilConversion.jpg" )
             openCvImage = cv.LoadImage( "pilConversion.jpg" )
             newImages.append(openCvImage)
+        os.remove("pilConversion.jpg")
         return newImages
 
     def overThreshold( self, greenImage, thresholdByPx ):
@@ -112,7 +113,9 @@ class MotionDetector():
                 initialMotion.save( initialMotionName )
                 self._detectedImages = []
 
-                command = 'ffmpeg -i ' + str(self._timeStamp) + ' -acodec libmp3lame -ab 192 ' + str(self._timeStamp)[:-4] + '.mov'
+                command = 'ffmpeg\\bin\\ffmpeg -i ' + str(self._timeStamp) + ' -acodec libmp3lame -ab 192 ' + str(self._timeStamp)[:-4] + '.mov'
+                # command = 'ffmpeg -i ' + str(self._timeStamp) + ' -acodec libmp3lame -ab 192 ' + str(self._timeStamp)[:-4] + '.mov'
+                print command
                 p = subprocess.Popen(command.split())
                 p.wait()
                 os.remove(self._timeStamp)
@@ -135,14 +138,8 @@ class MotionDetector():
                 vidURL = dropboxVid.getVSASLink( self._timeStamp )
 
                 #email done here
-                emailSender = SendEmail()                
-                emailSender.setSubject("VSAS Motion Detected!")
-                emailSender.setAlertLevel("RED")
-                emailSender.setDbPhotoLink( picURL )
-                emailSender.setDbVidLink( vidURL )
-                self._date = datetime.datetime.now().strftime("%Y-%m-%d")
 
-                emailSender.setDate(self._date)
+                self._date = datetime.datetime.now().strftime("%Y-%m-%d")
                 emailFile = open("vsasGUI/emailTester.txt")
                 while True:
                     line = emailFile.readline()
@@ -150,9 +147,19 @@ class MotionDetector():
                     print line
                     if not line:
                         break
+                    emailSender = SendEmail()                
+                    emailSender.setSubject("VSAS Motion Detected!")
+                    emailSender.setAlertLevel("RED")
+                    emailSender.setDbPhotoLink( picURL )
+                    emailSender.setDbVidLink( vidURL )
                     emailSender.setRecipient( line )
+                    emailSender.setDate(self._date)
                     emailSender.sendEmail()
                 emailFile.close()
+
+                recordingsFile = open("vsasGUI/testPreviousRecordings.txt", "a")
+                recordingsFile.write(self._date+","+vidURL+"\n")
+                recordingsFile.close()
 
 
                 #clear memory

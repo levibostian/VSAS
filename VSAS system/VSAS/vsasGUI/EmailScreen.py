@@ -82,7 +82,7 @@ class EmailSettings(Toplevel):
     def addEmail(self):
         email = EmailInput(self, title="Add Email").get()
         if len(email)>0:
-            emailFile = open("emailTester.txt","a")
+            emailFile = open("vsasGUI/emailTester.txt","a")
             #emailComposite = email.split(",")
             #emailTuple = (emailComposite[0], emailComposite[1])
             email = email+"\n"
@@ -98,14 +98,14 @@ class EmailSettings(Toplevel):
             index = self.emailList[eval(self._emailListbox.curselection()[0])]
             self.emailList.remove(index)
             self._emailListbox.delete(0,END)
-            emailFile = open("emailTester.txt","w")
+            emailFile = open("vsasGUI/emailTester.txt","w")
             for item in self.emailList:
                 emailFile.write(item+"\n")
                 self._emailListbox.insert(END, (item,""))
             emailFile.close()
 
     def displayHelp(self, event=None):
-        helpText = open("EmailScreenHelp.txt","r").read()
+        helpText = open("vsasGUI/EmailScreenHelp.txt","r").read()
         MsgBox.showinfo(title="VSAS Email Settings - Help", message=helpText)
 
     def cancel(self, event=None):
