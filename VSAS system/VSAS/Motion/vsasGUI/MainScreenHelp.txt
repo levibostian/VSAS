@@ -1,0 +1,5 @@
+To add, remove, or disable email addresses, click "Email Settings."
+
+To view a list of previously recorded events, click "View Previous Events."
+
+To view this screen again, click "Help."

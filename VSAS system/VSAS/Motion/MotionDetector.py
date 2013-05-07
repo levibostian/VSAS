@@ -8,6 +8,7 @@ import datetime
 from dropbox.dropbox_vsas import DropboxUploader
 from email_vsas.email_vsas import SendEmail
 import subprocess
+import os
 
 class MotionDetector(): 
     def __init__(self):
@@ -107,13 +108,15 @@ class MotionDetector():
             #this could look better
                 print "\n\nEND RECORDING!\n\n"
                 self.recordOutToVideo()
-                initialMotionName = "initImage-" + str(self._timeStamp[7:-4]) + ".jpg"
+                initialMotionName = "initImages/initImage-" + str(self._timeStamp[7:-4]) + ".jpg"
                 initialMotion.save( initialMotionName )
                 self._detectedImages = []
 
                 command = 'ffmpeg -i ' + str(self._timeStamp) + ' -acodec libmp3lame -ab 192 ' + str(self._timeStamp)[:-4] + '.mov'
                 p = subprocess.Popen(command.split())
                 p.wait()
+                os.remove(self._timeStamp)
+
                 #video is now .mov
                 self._timeStamp = self._timeStamp[:-4] + ".mov"
 
@@ -132,17 +135,24 @@ class MotionDetector():
                 vidURL = dropboxVid.getVSASLink( self._timeStamp )
 
                 #email done here
-                emailSender = SendEmail()
-                emailSender.setRecipient( "tbrown@uni.edu" )
+                emailSender = SendEmail()                
                 emailSender.setSubject("VSAS Motion Detected!")
                 emailSender.setAlertLevel("RED")
                 emailSender.setDbPhotoLink( picURL )
                 emailSender.setDbVidLink( vidURL )
-                # emailSender.setDuration("not available")#str(int(time.time() - startTime)) + " secs")
-                # emailSender.setDuration("not available")#str(int(time.time() - startTime)) + " secs")
                 self._date = datetime.datetime.now().strftime("%Y-%m-%d")
+
                 emailSender.setDate(self._date)
-                emailSender.sendEmail()
+                emailFile = open("vsasGUI/emailTester.txt")
+                while True:
+                    line = emailFile.readline()
+                    line = line.replace("\n","")
+                    print line
+                    if not line:
+                        break
+                    emailSender.setRecipient( line )
+                    emailSender.sendEmail()
+                emailFile.close()
 
 
                 #clear memory

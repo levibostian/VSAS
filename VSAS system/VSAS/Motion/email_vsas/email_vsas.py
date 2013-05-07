@@ -54,7 +54,7 @@ class SendEmail:
             self.dbVidLink = link
     def setDuration(self, length):
             self.duration = length
-        def setDate(self, date):
+    def setDate(self, date):
             self.date = date
     
     def setUp(self):
