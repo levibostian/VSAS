@@ -63,7 +63,7 @@ class PreviousRecordingsListScreen(Toplevel):
         #Label(frame,text="SECURITY THREAT").grid(row=0,column=1)
         #Label(frame,text="DURATION (sec)").grid(row=0,column=2)
         Label(frame,text="LINK").grid(row=0,column=1,sticky=W)
-        for row in xrange(1,len(self._listOfEvents)):
+        for row in xrange(1,len(self._listOfEvents)+1):
             item = self._listOfEvents[row-1]
             Label(frame, text=item[0]).grid(row=row, column=0)
             #Label(frame, text=item[1]).grid(row=row, column=1)

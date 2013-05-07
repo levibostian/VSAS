@@ -39,9 +39,9 @@ class MotionDetector():
 
     def adjustCamera( self, cam ):
         for x in xrange(10):
-            time.sleep(.75)
+            time.sleep(.25)
             initialImage = cam.getImage()
-            time.sleep(.75)
+            time.sleep(.25)
         return initialImage
 
     def convertImagesToCv( self, images ):
@@ -66,7 +66,7 @@ class MotionDetector():
         ts = time.time()
         self._timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H:%M:%S')+".avi"
         self._timeStamp = self._timeStamp.replace(":", "-")
-        self._timeStamp = "videos/" + self._timeStamp
+        self._timeStamp = "" + self._timeStamp
         video_out = cv.CreateVideoWriter( self._timeStamp, #make it add to subfolder..
                                           cv.CV_FOURCC('I','4','2','0'), 
                                           2.0, 
@@ -109,7 +109,7 @@ class MotionDetector():
             #this could look better
                 print "\n\nEND RECORDING!\n\n"
                 self.recordOutToVideo()
-                initialMotionName = "initImages/initImage-" + str(self._timeStamp[7:-4]) + ".jpg"
+                initialMotionName = "initImage-" + str(self._timeStamp[7:-4]) + ".jpg"
                 initialMotion.save( initialMotionName )
                 self._detectedImages = []
 
@@ -144,7 +144,6 @@ class MotionDetector():
                 while True:
                     line = emailFile.readline()
                     line = line.replace("\n","")
-                    print line
                     if not line:
                         break
                     emailSender = SendEmail()                
@@ -161,6 +160,8 @@ class MotionDetector():
                 recordingsFile.write(self._date+","+vidURL+"\n")
                 recordingsFile.close()
 
+                os.remove(self._timeStamp)
+                os.remove(initialMotionName)
 
                 #clear memory
                 startTime = 0

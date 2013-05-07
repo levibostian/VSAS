@@ -65,7 +65,7 @@ class EmailInput(tkSimpleDialog.Dialog):
             return 0
 
     def apply(self):
-        self.result = ",".join([self._emailEntered.get(),"N"])
+        self.result = ",".join([self._emailEntered.get()])#,"N"])
 
     def get(self):
         return self.result

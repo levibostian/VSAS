@@ -85,6 +85,7 @@ class EmailSettings(Toplevel):
             emailFile = open("vsasGUI/emailTester.txt","a")
             #emailComposite = email.split(",")
             #emailTuple = (emailComposite[0], emailComposite[1])
+            print email
             email = email+"\n"
             self.emailList.append(email)
             emailFile.write(email)
