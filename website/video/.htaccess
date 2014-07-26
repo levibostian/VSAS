@@ -1,3 +1,0 @@
-RewriteEngine On
-RewriteCond %{QUERY_STRING} id=
-RewriteRule (.*) http://vsassoftware.com/$1?
